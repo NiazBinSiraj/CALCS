@@ -1,0 +1,130 @@
+@charset "utf-8";
+
+$primary-color: #4473c5;
+$secondary-color: #96aad8;
+
+//Navbar Style
+$navbar-background-color: $primary-color;
+$navbar-text-color: white;
+
+//Primary Tab Style
+$primary-tab-active-background-color: darken($primary-color, 10);
+$primary-tab-background-color: $secondary-color;
+$primary-tab-active-text-color: white;
+$primary-tab-text-color: black;
+$primary-tab-hover-color: darken($primary-color, 10);
+$primary-tab-hover-text-color: white;
+
+//Secondary Tab Style
+$secondary-tab-active-background-color: #4b93d5;
+$secondary-tab-background-color: #a0bee1;
+$secondary-tab-active-text-color: white;
+$secondary-tab-text-color: black;
+$secondary-tab-hover-color: #5299d7;
+$secondary-tab-hover-text-color: white;
+
+
+//Form Style
+$form-head-background-color-1: #396cc7;
+$form-head-background-color-2: #7295d5;
+$form-head-text-color: white;
+$form-button-color: $primary-color;
+$form-button-text-color: white;
+
+//Table Style
+$table-head-background-color: $primary-color;
+$table-head-text-color: white;
+$table-body-background-color-1: #ccd4e9;
+$table-body-background-color-2: #e8eaf6;
+$table-body-text-color: black;
+$table-border-color: white;
+
+//General Class
+.is-flex-column{
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+//Form Class
+.form-head-1{
+    background-color: $form-head-background-color-1;
+    border-color: $form-head-background-color-1;
+    color: $form-head-text-color;
+}
+
+.form-head-2{
+    background-color: $form-head-background-color-2;
+    border-color: $form-head-background-color-2;
+    color: $form-head-text-color;
+}
+
+.form-head-button{
+    background-color: $form-button-color;
+    border-color: transparent;
+    color: $form-button-text-color;
+}
+
+//Table Class
+.table-head{
+    th{
+        background-color: $table-head-background-color;
+        color: $table-head-text-color;
+    }
+}
+
+.table-body-1{
+    td{
+        background-color: $table-body-background-color-1;
+        color: $table-body-text-color;
+    }
+}
+
+.table-body-2{
+    td{
+        background-color: $table-body-background-color-2;
+        color: $table-body-text-color;
+    }
+}
+
+//Tab Style
+li.is-active{
+    a.primary-tab{
+        background-color: $primary-tab-active-background-color;
+        border-color: white;
+        color: $primary-tab-active-text-color;
+    }
+
+    a.secondary-tab{
+        background-color: $secondary-tab-active-background-color;
+        border-color: white;
+        color: $secondary-tab-active-text-color;
+    }
+}
+
+li{
+    a.primary-tab:hover{
+        background-color: $primary-tab-hover-color;
+        border-color: white;
+        color: $primary-tab-hover-text-color;
+    }
+
+    a.primary-tab{
+        background-color: $primary-tab-background-color;
+        color: $primary-tab-text-color;
+    }
+
+    a.secondary-tab:hover{
+        background-color: $secondary-tab-hover-color;
+        border-color: white;
+        color: $secondary-tab-hover-text-color;
+    }
+
+    a.secondary-tab{
+        background-color: $secondary-tab-background-color;
+        color: $secondary-tab-text-color;
+    }
+}

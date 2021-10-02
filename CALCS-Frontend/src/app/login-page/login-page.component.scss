@@ -1,0 +1,16 @@
+.root{
+    width: 100vw;
+    height: 90vh;
+    background-color: #b5bfff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.is-centered{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}

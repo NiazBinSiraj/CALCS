@@ -1,0 +1,22 @@
+<nav class="navbar is-link" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <h2 class="title is-2 navbar-title">CALCS</h2>
+      </a>
+    </div>
+  
+    <div class="navbar-menu" *ngIf="isLoggedIn">
+      <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="username">
+                <b>{{username}}</b>
+            </div>
+            <div>
+                <a (click)="OnClickSignOut()" class="button is-light">
+                    Sign Out
+                </a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </nav>

@@ -1,0 +1,18 @@
+<div class="root">
+    <div class="field">
+      <p class="control">
+        <input (keyup)="OnEditUsername($event)" class="input" type="text" placeholder="Username" required />
+      </p>
+    </div>
+    <div class="field">
+      <p class="control">
+        <input (keyup)="OnEditPassword($event)" class="input" type="password" placeholder="Password" required/>
+      </p>
+    </div>
+    <div class="field">
+      <p class="control">
+        <button (click)="OnClickLogin()" class="button is-link">Login</button>
+      </p>
+    </div>
+  </div>
+  
