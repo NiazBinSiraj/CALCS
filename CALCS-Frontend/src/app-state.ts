@@ -7,9 +7,9 @@ export class AppState{
     access_token:string = "";
     user_id:number = 0;
     clerk_id:number = 0;
-    username:string = "USER";
-    user_type:string = "C";
-    isLoggedIn:boolean = true;
+    username:string = "";
+    user_type:string = "";
+    isLoggedIn:boolean = false;
 
     clerkUser:Clerk = new Clerk();
 }
