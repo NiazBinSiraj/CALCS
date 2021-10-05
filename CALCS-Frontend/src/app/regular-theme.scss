@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-$primary-color: #4473c5;
-$secondary-color: #96aad8;
+$primary-color: #537D45;
+$secondary-color: #E0F1B8;
 
 //Navbar Style
 $navbar-background-color: $primary-color;
@@ -25,8 +25,8 @@ $secondary-tab-hover-text-color: white;
 
 
 //Form Style
-$form-head-background-color-1: #396cc7;
-$form-head-background-color-2: #7295d5;
+$form-head-background-color-1: $primary-color;
+$form-head-background-color-2: $primary-color;
 $form-head-text-color: white;
 $form-button-color: $primary-color;
 $form-button-text-color: white;
@@ -48,6 +48,16 @@ $table-border-color: white;
     align-items: center;
 }
 
+//Navbar-Button Class
+.is-green{
+    background-color: $primary-color;
+    color: $secondary-color;
+}
+
+.is-secondary{
+    background-color: $secondary-color;
+    color: $primary-color;
+}
 
 //Form Class
 .form-head-1{

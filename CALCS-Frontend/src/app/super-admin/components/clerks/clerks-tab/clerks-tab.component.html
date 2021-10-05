@@ -1,14 +1,20 @@
-<div class="tabs is-toggle is-fullwidth">
-    <ul>
-      <li [ngClass]="{'is-active' : clerksInfoIsActive}">
-        <a class="secondary-tab" (click)="OnClickClerkInfo()">
-          <span>Clerk's Info</span>
-        </a>
-      </li>
-      <li [ngClass]="{'is-active' : entryNewClerkIsActive}">
-        <a class="secondary-tab" (click)="OnClickEntryNewClerk()">
-          <span>Entry New Clerk</span>
-        </a>
-      </li>
-    </ul>
+<div class="sidebar">
+  <table class="table is-fullwidth">
+    <tbody>
+      <tr [ngClass]="{'is-active' : clerksInfoIsActive}">
+        <td>
+          <button class="button" (click)="OnClickClerkInfo()">
+            <span>Clerk's Info</span>
+          </button>
+        </td>
+      </tr>
+      <tr [ngClass]="{'is-active' : clerksInfoIsActive}">
+        <td>
+          <button class="button" (click)="OnClickEntryNewClerk()">
+            <span>Entry New Clerk</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

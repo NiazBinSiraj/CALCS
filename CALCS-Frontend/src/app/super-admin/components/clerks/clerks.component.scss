@@ -1,1 +1,10 @@
 @import '../../../regular-theme.scss';
+
+.fixed{
+    position: fixed;
+}
+
+.y-scrollable{
+    overflow-y:scroll;
+    overflow-x:hidden;
+}

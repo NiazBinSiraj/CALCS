@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { AppState } from 'src/app-state';
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, Input } from '@angular/core';
 import { Clerk } from 'src/app/models/clerk';
 
 @Component({
@@ -9,6 +9,7 @@ import { Clerk } from 'src/app/models/clerk';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit, DoCheck {
+  @Input() title:string = "";
   isLoggedIn:boolean = false;
   username:string = "";
   constructor(private router:Router) { }

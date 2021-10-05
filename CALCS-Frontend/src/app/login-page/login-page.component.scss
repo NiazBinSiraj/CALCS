@@ -1,7 +1,9 @@
+@import '../regular-theme.scss';
+
 .root{
     width: 100vw;
     height: 90vh;
-    background-color: #b5bfff;
+    background-color: $secondary-color;
 
     display: flex;
     align-items: center;
@@ -13,4 +15,14 @@
     position: fixed;
     top: 50%;
     left: 50%;
+}
+
+figure{
+    margin: auto;
+}
+
+.box{
+    background-color: $primary-color;
+    border-radius: 0px;
+    width: 300px;
 }
