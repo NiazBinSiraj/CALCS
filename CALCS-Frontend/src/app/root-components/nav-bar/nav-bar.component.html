@@ -1,7 +1,7 @@
-<nav class="navbar is-link" role="navigation" aria-label="main navigation">
+<nav class="navbar is-green" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="#">
-        <h2 class="title is-2 navbar-title">CALCS</h2>
+        <h2 class="title is-2 navbar-title">{{title}}</h2>
       </a>
     </div>
   
@@ -9,10 +9,10 @@
       <div class="navbar-end">
         <div class="navbar-item">
             <div class="username">
-                <b>{{username}}</b>
+                <b style="color: white;">{{username}}</b>
             </div>
             <div>
-                <a (click)="OnClickSignOut()" class="button is-light">
+                <a (click)="OnClickSignOut()" class="button is-secondary">
                     Sign Out
                 </a>
             </div>

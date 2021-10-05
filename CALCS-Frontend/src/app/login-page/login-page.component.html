@@ -1,18 +1,28 @@
 <div class="root">
+  <div class="box">
+    <figure class="image is-128x128">
+      <img src="../../assets/army-logo.png" alt="">
+    </figure>
     <div class="field">
       <p class="control">
-        <input (keyup)="OnEditUsername($event)" class="input" type="text" placeholder="Username" required />
+        <input (keyup)="OnEditUsername($event)" class="input is-small" type="text" placeholder="Username" required />
       </p>
     </div>
     <div class="field">
       <p class="control">
-        <input (keyup)="OnEditPassword($event)" class="input" type="password" placeholder="Password" required/>
+        <input (keyup)="OnEditPassword($event)" class="input is-small" type="password" placeholder="Password" required/>
       </p>
     </div>
     <div class="field">
       <p class="control">
-        <button (click)="OnClickLogin()" class="button is-link">Login</button>
+        <button (click)="OnClickLogin()" class="button is-secondary is-small">Login</button>
+      </p>
+    </div>
+    <div class="field">
+      <p class="control">
+        <a href="#" (click)="OnClickLogin()" style="color: white;"><u>Forget Password</u></a>
       </p>
     </div>
   </div>
+</div>
   
