@@ -1,1 +1,31 @@
-<p>clerks-info works!</p>
+<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Clerk's Info</h2>
+<table class="table is-bordered is-fullwidth is-narrow">
+    <thead>
+        <tr>
+            <th>Personal No</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Rank</th>
+            <th>Unit</th>
+            <th>Subunit</th>
+            <th>Contact</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let clerk of clerks">
+            <td>{{clerk.personal_no}}</td>
+            <td>{{clerk.username}}</td>
+            <td>{{clerk.name}}</td>
+            <td>{{clerk.email}}</td>
+            <td>{{clerk.password}}</td>
+            <td>{{clerk.rank}}</td>
+            <td>{{clerk.unit}}</td>
+            <td>{{clerk.subunit}}</td>
+            <td>{{clerk.contact}}</td>
+            <td>{{clerk.address}}</td>
+        </tr>
+    </tbody>
+</table>

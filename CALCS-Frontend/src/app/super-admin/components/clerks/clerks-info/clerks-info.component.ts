@@ -1,4 +1,6 @@
+import { Clerk } from 'src/app/models/clerk';
 import { Component, OnInit } from '@angular/core';
+import { ClerkServiceService } from 'src/app/services/clerkService/clerk-service.service';
 
 @Component({
   selector: 'app-clerks-info',
@@ -7,9 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClerksInfoComponent implements OnInit {
 
-  constructor() { }
+  clerks:Clerk[] = [];
+  
+  constructor(private clerkService: ClerkServiceService) { }
 
   ngOnInit(): void {
+    this.GetAllClerks();
   }
 
+  async GetAllClerks()
+  {
+    await this.clerkService.GetAll().then((res) => {
+      for(let i=0; i<res.length; i++)
+      {
+        let clerk:Clerk = new Clerk();
+        clerk.personal_no = res[i].personal_no;
+        clerk.username = res[i].user.username;
+        clerk.name = res[i].name;
+        clerk.email = res[i].user.email;
+        clerk.password = res[i].password;
+        clerk.unit = res[i].unit;
+        clerk.subunit = res[i].subunit;
+        clerk.rank = res[i].rank;
+        clerk.contact = res[i].contact;
+        clerk.address = res[i].address;
+
+        this.clerks.push(clerk);
+      }
+    }).catch(console.error);
+  }
 }
