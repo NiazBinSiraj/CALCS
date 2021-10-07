@@ -24,14 +24,14 @@ export class ClerkServiceService {
   }
 
   Create(body:any){
-    return this.request('post', `${baseUrl}/clerk/create/`, body);
+    return this.request('post', `${baseUrl}/clerk-page/clerks/`, body);
   }
 
   GetAll(){
-    return this.request('get', `${baseUrl}/clerk/clerks/`);
+    return this.request('get', `${baseUrl}/clerk-page/clerks/`);
   }
 
-  GetByID(id:number){
-    return this.request('get', `${baseUrl}/clerk/clerks/${id}/`);
+  GetByID(clerk_id:number){
+    return this.request('get', `${baseUrl}/clerk-page/clerks/${clerk_id}/`);
   }
 }

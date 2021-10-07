@@ -36,29 +36,28 @@ export class LoginPageComponent implements OnInit {
       AppState.instance.access_token = res.access;
       let decoded: any = jwt_decode(res.access);
       AppState.instance.user_id = decoded.user_id;
-      await this.authService.IsAdmin(decoded.user_id).then(async (res) => {
-        if (res.is_admin == false) {
-          await this.authService.DecodeJWT({ "token": AppState.instance.access_token }).then(async (res) => {
-            AppState.instance.clerk_id = res.clerk_id;
-            AppState.instance.user_type = "C";
-            await this.clerkService.GetByID(AppState.instance.clerk_id).then((res) =>{
-              AppState.instance.clerkUser.username = res.username;
-              AppState.instance.clerkUser.type = res.type;
-              AppState.instance.clerkUser.email = res.email;
-              AppState.instance.clerkUser.address = res.address;
-              AppState.instance.clerkUser.contact = res.contact;
-              AppState.instance.clerkUser.password = res.password;
-              AppState.instance.clerkUser.rank = res.rank;
-              AppState.instance.clerkUser.subunit = res.subunit;
-              AppState.instance.clerkUser.unit = res.unit;
+      await this.authService.GetUserType(decoded.user_id).then(async (res) => {
+        if (res.type == "clerk") {
+          AppState.instance.related_id = res.related_id;
+          AppState.instance.user_type = "clerk";
+          await this.clerkService.GetByID(AppState.instance.related_id).then((res) => {
+            AppState.instance.clerkUser.username = res.user.username;
+            AppState.instance.clerkUser.email = res.user.email;
+            AppState.instance.clerkUser.address = res.address;
+            AppState.instance.clerkUser.contact = res.contact;
+            AppState.instance.clerkUser.password = res.password;
+            AppState.instance.clerkUser.rank = res.rank;
+            AppState.instance.clerkUser.subunit = res.subunit;
+            AppState.instance.clerkUser.unit = res.unit;
+            AppState.instance.clerkUser.personal_no = res.personal_no;
+            AppState.instance.clerkUser.profile_pic = res.profile_pic;
 
-              AppState.instance.isLoggedIn = true;
-              this.router.navigate(['clerk']);
-            }).catch(console.error);
+            AppState.instance.isLoggedIn = true;
+            this.router.navigate(['clerk']);
           }).catch(console.error);
         }
         else {
-          AppState.instance.user_type = "A";
+          AppState.instance.user_type = "admin";
           AppState.instance.username = "admin";
           AppState.instance.isLoggedIn = true;
           this.router.navigate(['superAdmin']);

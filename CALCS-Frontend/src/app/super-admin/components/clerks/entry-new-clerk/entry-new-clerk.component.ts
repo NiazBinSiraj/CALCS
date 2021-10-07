@@ -36,25 +36,30 @@ export class EntryNewClerkComponent implements OnInit {
 
   async OnClickSubmit()
   {
-    this.newclerk.type = "C";
     let entry = {
-      "username": this.newclerk.username,
+      "user" : {
+        "username": this.newclerk.username,
+        "password": this.newclerk.password,
+        "email": this.newclerk.email,
+      },
       "name": this.newclerk.name,
-      "password": this.newclerk.password,
-      "email": this.newclerk.email,
-      "type": this.newclerk.type,
+      "personal_no": this.newclerk.personal_no,
       "rank": this.newclerk.rank,
+      "password": this.newclerk.password,
       "address": this.newclerk.address,
       "unit": this.newclerk.unit,
       "subunit": this.newclerk.subunit,
       "contact": this.newclerk.contact
     };
     await this.clerkService.Create(entry).then((res) => {
-      console.log(res);
+      console.log("Clerk Added Successfully\n" + res);
     }).catch(console.error);
     
   }
 
+  OnEditPersonalNo(event:any){
+    this.newclerk.personal_no = event.target.value;
+  }
   OnEditUsername(event:any){
     this.newclerk.username = event.target.value;
   }

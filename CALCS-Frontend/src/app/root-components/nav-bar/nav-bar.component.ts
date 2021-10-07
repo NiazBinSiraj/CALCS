@@ -27,7 +27,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     AppState.instance.username = "";
     AppState.instance.user_type = "";
     AppState.instance.access_token = "";
-    AppState.instance.clerk_id = 0;
+    AppState.instance.related_id = 0;
     AppState.instance.user_id = 0;
     AppState.instance.clerkUser = new Clerk();
 

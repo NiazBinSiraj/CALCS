@@ -15,9 +15,9 @@ export class AppComponent {
   ngOnInit()
   {
     if(AppState.instance.isLoggedIn){
-      if(AppState.instance.user_type == "A")this.router.navigate(['superAdmin']);
+      if(AppState.instance.user_type == "admin")this.router.navigate(['superAdmin']);
       if(AppState.instance.user_type == "officer")this.router.navigate(['officer']);
-      if(AppState.instance.user_type == "C")this.router.navigate(['clerk']);
+      if(AppState.instance.user_type == "clerk")this.router.navigate(['clerk']);
     }
     else{
       this.router.navigate(['login']);

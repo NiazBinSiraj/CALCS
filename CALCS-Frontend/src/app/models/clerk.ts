@@ -3,10 +3,11 @@ export class Clerk{
     name!:string;
     password!:string;
     email!:string;
-    type!:string;
+    personal_no!:string;
     rank!:string;
     address!:string;
     unit!:string;
     subunit!:string;
     contact!:string;
+    profile_pic!:string;
 }

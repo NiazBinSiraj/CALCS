@@ -1,143 +1,158 @@
 <h2 class="title is-2" style="text-align: center; margin-top: 10px;">Add a New Clerk</h2>
 <table class="table is-fullwidth container">
-    <tbody>
-        <tr>
-            <td>
-                <div class="field has-addons">
-                    <p class="control" style="width: 39%;">
-                        <a class="button is-static is-fullwidth form-head-1">
-                          Username
-                        </a>
-                    </p>
-                    <p class="control" style="width: 60%;">
-                      <input (keyup)="OnEditUsername($event)" class="input" type="text" placeholder="User Name">
-                    </p>
-                  </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="field has-addons">
-                    <p class="control" style="width: 39%;">
-                        <a class="button is-static is-fullwidth form-head-2">
-                          Name
-                        </a>
-                    </p>
-                    <p class="control" style="width: 60%;">
-                      <input (keyup)="OnEditName($event)" class="input" type="text" placeholder="BA No">
-                    </p>
-                  </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="field has-addons">
-                    <p class="control" style="width: 39%;">
-                        <a class="button is-static is-fullwidth form-head-1">
-                          Rank
-                        </a>
-                    </p>
-                    <p class="control" style="width: 60%;">
-                      <input (keyup)="OnEditRank($event)" class="input" type="text" placeholder="Rank">
-                    </p>
-                  </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="field has-addons">
-                    <p class="control" style="width: 39%;">
-                        <a class="button is-static is-fullwidth form-head-2">
-                          Email
-                        </a>
-                    </p>
-                    <p class="control" style="width: 60%;">
-                      <input (keyup)="OnEditEmail($event)" class="input" type="text" placeholder="Email">
-                    </p>
-                  </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="field has-addons">
-                    <p class="control" style="width: 39%;">
-                        <a class="button is-static is-fullwidth form-head-2">
-                          Unit
-                        </a>
-                    </p>
-                    <p class="control" style="width: 60%;">
-                      <input (keyup)="OnEditUnit($event)" class="input" type="text" placeholder="Unit">
-                    </p>
-                  </div>
-            </td>
-        </tr>
-        <tr>
-          <td>
-              <div class="field has-addons">
-                  <p class="control" style="width: 39%;">
-                      <a class="button is-static is-fullwidth form-head-2">
-                        Address
-                      </a>
-                  </p>
-                  <p class="control" style="width: 60%;">
-                    <input (keyup)="OnEditAddress($event)" class="input" type="text" placeholder="Address">
-                  </p>
-                </div>
-          </td>
-      </tr>
-        <tr>
-            <td>
-                <div class="field has-addons">
-                    <p class="control" style="width: 39%;">
-                        <a class="button is-static is-fullwidth form-head-1">
-                          Subunit
-                        </a>
-                    </p>
-                    <p class="control" style="width: 60%;">
-                      <input (keyup)="OnEditSubunit($event)" class="input" type="text" placeholder="Subunit">
-                    </p>
-                  </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="field has-addons">
-                    <p class="control" style="width: 39%;">
-                        <a class="button is-static is-fullwidth form-head-1">
-                          Contacts
-                        </a>
-                    </p>
-                    <p class="control" style="width: 60%;">
-                      <input (keyup)="OnEditContact($event)" class="input" type="text" placeholder="Contacts">
-                    </p>
-                  </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="field has-addons">
-                    <p class="control" style="width: 39%;">
-                        <a class="button is-static is-fullwidth form-head-2">
-                          Password
-                        </a>
-                    </p>
-                    <p class="control" style="width: 50%;">
-                      <input (keyup)="OnEditPassword($event)" class="input" type="{{ passwordIsHidden ? 'password' : 'text' }}" placeholder="Password">
-                    </p>
-                    <p class="control" style="width: 10%;">
-                        <a class="button is-fullwidth" (click)="OnClickShowPassword()">
-                          {{passwordStatus}}
-                        </a>
-                    </p>
-                  </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button (click)="OnClickSubmit()" class="button is-fullwidth is-green">
-                    Submit
-                </button>
-            </td>
-        </tr>
-    </tbody>
+  <tbody>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Personal No
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditPersonalNo($event)" class="input" type="text" placeholder="Personal No">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Username
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditUsername($event)" class="input" type="text" placeholder="User Name">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Name
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditName($event)" class="input" type="text" placeholder="BA No">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Rank
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditRank($event)" class="input" type="text" placeholder="Rank">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Email
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditEmail($event)" class="input" type="text" placeholder="Email">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Unit
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditUnit($event)" class="input" type="text" placeholder="Unit">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Address
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditAddress($event)" class="input" type="text" placeholder="Address">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Subunit
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditSubunit($event)" class="input" type="text" placeholder="Subunit">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Contacts
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditContact($event)" class="input" type="text" placeholder="Contacts">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Password
+            </a>
+          </p>
+          <p class="control" style="width: 50%;">
+            <input (keyup)="OnEditPassword($event)" class="input" type="{{ passwordIsHidden ? 'password' : 'text' }}"
+              placeholder="Password">
+          </p>
+          <p class="control" style="width: 10%;">
+            <a class="button is-fullwidth" (click)="OnClickShowPassword()">
+              {{passwordStatus}}
+            </a>
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button (click)="OnClickSubmit()" class="button is-fullwidth is-green">
+          Submit
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>

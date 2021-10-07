@@ -27,11 +27,7 @@ export class AuthserviceService {
     return this.request('post', `${baseUrl}/api/token/`,body);
   }
 
-  IsAdmin(id:any){
-    return this.request('get', `${baseUrl}/isadmin/${id}/`);
-  }
-
-  DecodeJWT(body:any){
-    return this.request('post', `${baseUrl}/clerk/decodejwt/`, body);
+  GetUserType(user_id:any){
+    return this.request('get', `${baseUrl}/user/type/${user_id}/`);
   }
 }
