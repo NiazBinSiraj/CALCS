@@ -19,6 +19,7 @@ export class EntryNewOfficerComponent implements OnInit {
   constructor(private officerService:OfficerServiceService) { }
 
   ngOnInit(): void {
+    this.newOfficer.subunit = "A coy";
   }
 
   OnClickShowPassword()
@@ -61,7 +62,10 @@ export class EntryNewOfficerComponent implements OnInit {
       console.log("Officer Added Successfully\n" + res);
     }).catch((err) => {
       this.requesting = false;
-      alert(err.status + " " + err.statusText);
+      if(err.error.ba_no != null) alert(err.error.ba_no);
+      if(err.error.user.username != null) alert(err.error.user.username);
+      if(err.error.user.email != null) alert(err.error.user.email);
+      else alert(err.status + " " + err.statusText);
       console.log(err);
     });
   }

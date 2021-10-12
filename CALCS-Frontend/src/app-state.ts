@@ -3,7 +3,7 @@ import { Clerk } from "./app/models/clerk";
 export class AppState{
     public static instance = new AppState;
 
-    backendURL:string = "http://127.0.0.1:8000";
+    backendURL:string = "https://ahadsheikh.pythonanywhere.com";
 
     access_token:string = "";
     user_id:number = 0;

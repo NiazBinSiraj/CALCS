@@ -74,7 +74,8 @@ export class LoginPageComponent implements OnInit {
       });
     }).catch((err) =>{
       this.requesting = false;
-      alert(err.error + " " + err.errorStatus);
+      if(err.error.detail != null) alert(err.error.detail);
+      else alert(err.error + " " + err.errorStatus);
       console.log(err);
     });
   }

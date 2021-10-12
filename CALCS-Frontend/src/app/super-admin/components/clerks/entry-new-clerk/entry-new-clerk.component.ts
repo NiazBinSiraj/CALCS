@@ -19,6 +19,7 @@ export class EntryNewClerkComponent implements OnInit {
   constructor(private clerkService: ClerkServiceService) { }
 
   ngOnInit(): void {
+    this.newclerk.subunit = "A coy";
   }
 
   OnClickShowPassword()
@@ -60,7 +61,10 @@ export class EntryNewClerkComponent implements OnInit {
       console.log("Clerk Added Successfully\n" + res);
     }).catch((err) => {
       this.requesting = false;
-      alert(err.status + " " + err.statusText);
+      if(err.error.personal_no != null) alert(err.error.personal_no);
+      if(err.error.user.username != null) alert(err.error.user.username);
+      if(err.error.user.email != null) alert(err.error.user.email);
+      else alert(err.status + " " + err.statusText);
       console.log(err);
     });
     

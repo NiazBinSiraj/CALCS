@@ -15,6 +15,7 @@ export class EntryNewSoldiersComponent implements OnInit {
   constructor(private soldierService:SoldierServiceService) { }
 
   ngOnInit(): void {
+    this.newSoldier.subunit = "A coy";
   }
 
   async OnClickSubmit()
@@ -40,7 +41,8 @@ export class EntryNewSoldiersComponent implements OnInit {
       console.log("Soldier Added Successfully\n" + res);
     }).catch((err) => {
       this.requesting = false;
-      alert(err.status + " " + err.statusText);
+      if(err.error.personal_no != null) alert(err.error.personal_no);
+      else alert(err.status + " " + err.statusText);
       console.log(err);
     });
   }
