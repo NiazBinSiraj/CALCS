@@ -1,0 +1,9 @@
+<div class="columns">
+    <div class="column is-one-fifth" style="padding-right: 0px;">
+        <app-soldiers-tab #soldierTab></app-soldiers-tab>
+    </div>
+    <div class="column">
+        <app-view-soldiers *ngIf="soldierTab.soldiersIsActive"></app-view-soldiers>
+        <app-entry-new-soldiers *ngIf="soldierTab.entryNewSoldierIsActive"></app-entry-new-soldiers>
+    </div>
+</div>

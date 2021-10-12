@@ -8,6 +8,7 @@ import { NavBarComponent } from './root-components/nav-bar/nav-bar.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 
 import { SuperAdminModule } from './super-admin/super-admin.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SuperAdminModule } from './super-admin/super-admin.module';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    SuperAdminModule
+    SuperAdminModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

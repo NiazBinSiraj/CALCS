@@ -1,0 +1,189 @@
+<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Add a New Soldier</h2>
+<table class="table is-fullwidth container">
+  <tbody>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Personal No
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditPersonalNo($event)" class="input" type="text" placeholder="Personal No">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Name
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditName($event)" class="input" type="text" placeholder="Name">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Mission
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditMission($event)" class="input" type="text" placeholder="Mission">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Rank
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditRank($event)" class="input" type="text" placeholder="Rank">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Previous Company
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditPreviousCompany($event)" class="input" type="text" placeholder="Previous Company">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Unit
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditUnit($event)" class="input" type="text" placeholder="Unit">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Address
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditAddress($event)" class="input" type="text" placeholder="Address">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Subunit
+            </a>
+          </p>
+          <div class="control" style="width: 60%;">
+            <div class="select" style="width:100%">
+              <select (change)="OnEditSubunit($event)" style="width: 100%;">
+                <option>A coy</option>
+                <option>B coy</option>
+                <option>C coy</option>
+                <option>D coy</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+        <td>
+          <div class="field has-addons">
+            <p class="control" style="width: 39%;">
+              <a class="button is-static is-fullwidth form-head-1">
+                Appointment
+              </a>
+            </p>
+            <p class="control" style="width: 60%;">
+              <input (keyup)="OnEditAppointment($event)" class="input" type="text" placeholder="Appointment">
+            </p>
+          </div>
+        </td>
+      </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Contacts
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditContact($event)" class="input" type="text" placeholder="Contacts">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+        <td>
+          <div class="field has-addons">
+            <p class="control" style="width: 39%;">
+              <a class="button is-static is-fullwidth form-head-1">
+                Join Date
+              </a>
+            </p>
+            <p class="control" style="width: 60%;">
+              <input (keyup)="OnEditJoinDate($event)" class="input" type="text" placeholder="Join Date (DD-MM-YY)">
+            </p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="field has-addons">
+            <p class="control" style="width: 39%;">
+              <a class="button is-static is-fullwidth form-head-1">
+                Commision Date
+              </a>
+            </p>
+            <p class="control" style="width: 60%;">
+              <input (keyup)="OnEditCommisionDate($event)" class="input" type="text" placeholder="Commision Date (DD-MM-YY)">
+            </p>
+          </div>
+        </td>
+      </tr>
+    <tr>
+      <td>
+        <button (click)="OnClickSubmit()" class="button is-fullwidth is-green">
+          Submit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-loading-bar *ngIf="requesting"></app-loading-bar>

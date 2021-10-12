@@ -8,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class SuperAdminTabComponent implements OnInit {
 
   clerkIsActive:boolean = true;
+  officerIsActive:boolean = false;
   
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  OnClickClerks()
+  {
+    this.clerkIsActive = true;
+    this.officerIsActive = false;
+  }
+
+  OnClickOfficers()
+  {
+    this.clerkIsActive = false;
+    this.officerIsActive = true;
   }
 
 }

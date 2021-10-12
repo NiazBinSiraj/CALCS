@@ -1,0 +1,19 @@
+@import "../../regular-theme.scss";
+
+svg {
+	max-width: 25em;
+	border-radius: 3px;
+	box-shadow: 2px 2px 5px $primary-color;
+	background: $primary-color;
+	fill: none;
+	stroke: rgb(0, 54, 0);
+	stroke-linecap: round;
+	stroke-width: 8%
+}
+
+use {
+	stroke: rgb(173, 241, 173);
+	animation: a 2s linear infinite
+}
+
+@keyframes a { to { stroke-dashoffset: 0px } }

@@ -1,1 +1,24 @@
-<p>clerk-tab works!</p>
+<div class="tabs is-toggle is-fullwidth">
+    <ul>
+      <li [ngClass]="{'is-active' : hounerBoardIsActive}">
+        <a (click)="OnClickHounerBoard()" class="primary-tab">
+          <span>Houner Board</span>
+        </a>
+      </li>
+      <li [ngClass]="{'is-active' : soldiersinfoIsActive}">
+        <a (click)="OnClickSoldiersInfo()" class="primary-tab">
+          <span>Soldiers</span>
+        </a>
+      </li>
+      <li [ngClass]="{'is-active' : performanceIsActive}">
+        <a (click)="OnClickPerformance()" class="primary-tab">
+          <span>Performance</span>
+        </a>
+      </li>
+      <li [ngClass]="{'is-active' : punishmentIsActive}">
+        <a (click)="OnClickPunishment()" class="primary-tab">
+          <span>Punishment and Rewards</span>
+        </a>
+      </li>
+    </ul>
+</div>

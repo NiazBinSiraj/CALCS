@@ -1,2 +1,3 @@
-<app-super-admin-tab></app-super-admin-tab>
-<app-clerks></app-clerks>
+<app-super-admin-tab #superAdminTab></app-super-admin-tab>
+<app-clerks *ngIf="superAdminTab.clerkIsActive"></app-clerks>
+<app-officers *ngIf="superAdminTab.officerIsActive"></app-officers>

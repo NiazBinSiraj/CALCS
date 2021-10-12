@@ -1,9 +1,9 @@
 <div class="columns">
-    <div class="column is-one-quarter">
-        <app-clerks-tab #adminInfoTab></app-clerks-tab>
+    <div class="column is-one-fifth" style="padding-right: 0px;">
+        <app-clerks-tab #clerksTab></app-clerks-tab>
     </div>
     <div class="column">
-        <app-clerks-info *ngIf="adminInfoTab.clerksInfoIsActive"></app-clerks-info>
-        <app-entry-new-clerk *ngIf="adminInfoTab.entryNewClerkIsActive"></app-entry-new-clerk>
+        <app-clerks-info *ngIf="clerksTab.clerksInfoIsActive"></app-clerks-info>
+        <app-entry-new-clerk *ngIf="clerksTab.entryNewClerkIsActive"></app-entry-new-clerk>
     </div>
 </div>
