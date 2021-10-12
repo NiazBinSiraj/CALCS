@@ -1,0 +1,9 @@
+<div class="columns">
+    <div class="column is-one-fifth" style="padding-right: 0px;">
+        <app-officers-tab #officersTab></app-officers-tab>
+    </div>
+    <div class="column">
+        <app-officers-info *ngIf="officersTab.officersInfoIsActive"></app-officers-info>
+        <app-entry-new-officer *ngIf="officersTab.entryNewOfficerIsActive"></app-entry-new-officer>
+    </div>
+</div>

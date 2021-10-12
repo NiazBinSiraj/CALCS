@@ -1,0 +1,20 @@
+<div class="sidebar">
+    <table class="table is-fullwidth">
+      <tbody>
+        <tr [ngClass]="{'is-active' : officersInfoIsActive}">
+          <td>
+            <button class="button" (click)="OnClickOfficersInfo()">
+              <span>Officer's Info</span>
+            </button>
+          </td>
+        </tr>
+        <tr [ngClass]="{'is-active' : entryNewOfficerIsActive}">
+          <td>
+            <button class="button" (click)="OnClickEntryNewOfficer()">
+              <span>Entry New Officer</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

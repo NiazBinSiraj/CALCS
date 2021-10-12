@@ -1,0 +1,35 @@
+<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Honour Board</h2>
+<table class="table is-bordered is-fullwidth is-narrow">
+    <thead>
+        <tr>
+            <th>Personal No</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Rank</th>
+            <th>Unit</th>
+            <th>Subunit</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let clerk of clerks">
+            <td>{{clerk.personal_no}}</td>
+            <td>{{clerk.username}}</td>
+            <td>{{clerk.name}}</td>
+            <td>{{clerk.email}}</td>
+            <td>{{clerk.rank}}</td>
+            <td>{{clerk.unit}}</td>
+            <td>{{clerk.subunit}}</td>
+            <td>{{clerk.contact}}</td>
+            <td>{{clerk.address}}</td>
+            <td>{{clerk.starting_date}}</td>
+            <td>{{clerk.ending_date}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<app-loading-bar *ngIf="requesting"></app-loading-bar>

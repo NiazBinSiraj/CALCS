@@ -9,6 +9,8 @@ import { Clerk } from 'src/app/models/clerk';
 })
 export class EntryNewClerkComponent implements OnInit {
 
+  requesting:boolean = false;
+  
   passwordIsHidden:boolean = true;
   passwordStatus:string = "Show";
 
@@ -36,6 +38,7 @@ export class EntryNewClerkComponent implements OnInit {
 
   async OnClickSubmit()
   {
+    this.requesting = true;
     let entry = {
       "user" : {
         "username": this.newclerk.username,
@@ -52,8 +55,14 @@ export class EntryNewClerkComponent implements OnInit {
       "contact": this.newclerk.contact
     };
     await this.clerkService.Create(entry).then((res) => {
+      this.requesting = false;
+      alert("Clerk Added Successfully");
       console.log("Clerk Added Successfully\n" + res);
-    }).catch(console.error);
+    }).catch((err) => {
+      this.requesting = false;
+      alert(err.status + " " + err.statusText);
+      console.log(err);
+    });
     
   }
 

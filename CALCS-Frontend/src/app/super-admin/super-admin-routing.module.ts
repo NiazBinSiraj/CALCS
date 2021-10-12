@@ -1,8 +1,11 @@
+import { ClerkComponent } from './../clerk/clerk.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SuperAdminComponent } from './super-admin.component';
 
-const routes: Routes = [{ path: '', component: SuperAdminComponent }];
+const routes: Routes = [
+  { path: '', component: SuperAdminComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

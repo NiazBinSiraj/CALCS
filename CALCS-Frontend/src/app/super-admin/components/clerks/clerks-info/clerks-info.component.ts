@@ -9,6 +9,7 @@ import { ClerkServiceService } from 'src/app/services/clerkService/clerk-service
 })
 export class ClerksInfoComponent implements OnInit {
 
+  requesting:boolean = false;
   clerks:Clerk[] = [];
   
   constructor(private clerkService: ClerkServiceService) { }
@@ -19,7 +20,9 @@ export class ClerksInfoComponent implements OnInit {
 
   async GetAllClerks()
   {
+    this.requesting = true;
     await this.clerkService.GetAll().then((res) => {
+      
       for(let i=0; i<res.length; i++)
       {
         let clerk:Clerk = new Clerk();
@@ -33,9 +36,18 @@ export class ClerksInfoComponent implements OnInit {
         clerk.rank = res[i].rank;
         clerk.contact = res[i].contact;
         clerk.address = res[i].address;
+        clerk.profile_pic = res[i].profile_clerk;
+        clerk.starting_date = res[i].starting_date;
+        clerk.ending_date = res[i].ending_date;
 
         this.clerks.push(clerk);
       }
-    }).catch(console.error);
+
+      this.requesting = false;
+    }).catch((err) => {
+      this.requesting = false;
+      alert(err.error + " " + err.errorText);
+      console.log(err);
+    });
   }
 }

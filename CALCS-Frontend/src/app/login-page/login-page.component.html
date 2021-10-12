@@ -20,9 +20,11 @@
     </div>
     <div class="field">
       <p class="control">
-        <a href="#" (click)="OnClickLogin()" style="color: white;"><u>Forget Password</u></a>
+        <a href="#" (click)="OnClickForgetPassword()" style="color: white;"><u>Forget Password</u></a>
       </p>
     </div>
   </div>
 </div>
+
+<app-loading-bar *ngIf="requesting"></app-loading-bar>
   

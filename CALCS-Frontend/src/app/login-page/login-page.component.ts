@@ -5,12 +5,21 @@ import { ClerkServiceService } from '../services/clerkService/clerk-service.serv
 import { Router } from '@angular/router';
 import jwt_decode from "jwt-decode";
 
+import { HostListener } from '@angular/core';
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+
+  requesting:boolean = false;
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    if(event.key == "Enter") this.OnClickLogin();
+  }
 
   credential = {
     username: "",
@@ -32,6 +41,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   async OnClickLogin() {
+    this.requesting = true;
     await this.authService.Login(this.credential).then(async (res) => {
       AppState.instance.access_token = res.access;
       let decoded: any = jwt_decode(res.access);
@@ -41,29 +51,37 @@ export class LoginPageComponent implements OnInit {
           AppState.instance.related_id = res.related_id;
           AppState.instance.user_type = "clerk";
           await this.clerkService.GetByID(AppState.instance.related_id).then((res) => {
-            AppState.instance.clerkUser.username = res.user.username;
-            AppState.instance.clerkUser.email = res.user.email;
-            AppState.instance.clerkUser.address = res.address;
-            AppState.instance.clerkUser.contact = res.contact;
-            AppState.instance.clerkUser.password = res.password;
-            AppState.instance.clerkUser.rank = res.rank;
-            AppState.instance.clerkUser.subunit = res.subunit;
-            AppState.instance.clerkUser.unit = res.unit;
-            AppState.instance.clerkUser.personal_no = res.personal_no;
-            AppState.instance.clerkUser.profile_pic = res.profile_pic;
-
+            AppState.instance.username = res.user.username;
             AppState.instance.isLoggedIn = true;
+            this.requesting = false;
             this.router.navigate(['clerk']);
-          }).catch(console.error);
+          }).catch((err) =>{
+            this.requesting = false;
+            alert(err.error + " " + err.errorStatus);
+            console.log(err);
+          });
         }
         else {
           AppState.instance.user_type = "admin";
-          AppState.instance.username = "admin";
+          AppState.instance.username = "Admin";
           AppState.instance.isLoggedIn = true;
           this.router.navigate(['superAdmin']);
         }
-      }).catch(console.error);
-    }).catch(console.error);
+      }).catch((err) =>{
+        this.requesting = false;
+        alert(err.error + " " + err.errorStatus);
+        console.log(err);
+      });
+    }).catch((err) =>{
+      this.requesting = false;
+      alert(err.error + " " + err.errorStatus);
+      console.log(err);
+    });
+  }
+
+  OnClickForgetPassword()
+  {
+    
   }
 
 }

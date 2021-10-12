@@ -10,4 +10,6 @@ export class Clerk{
     subunit!:string;
     contact!:string;
     profile_pic!:string;
+    starting_date:string = "-";
+    ending_date:string = "-";
 }

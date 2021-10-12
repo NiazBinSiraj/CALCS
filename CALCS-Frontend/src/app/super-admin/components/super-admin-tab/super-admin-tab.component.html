@@ -1,12 +1,12 @@
 <div class="tabs is-toggle is-fullwidth">
     <ul>
       <li [ngClass]="{'is-active' : clerkIsActive}">
-        <a class="primary-tab">
+        <a (click)="OnClickClerks()" class="primary-tab">
           <span>Clerks</span>
         </a>
       </li>
-      <li>
-        <a class="primary-tab">
+      <li [ngClass]="{'is-active' : officerIsActive}">
+        <a (click)="OnClickOfficers()" class="primary-tab">
           <span>Officers</span>
         </a>
       </li>

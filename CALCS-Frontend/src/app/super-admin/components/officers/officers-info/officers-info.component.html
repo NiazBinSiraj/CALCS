@@ -1,0 +1,39 @@
+<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Officer's Info</h2>
+<table class="table is-bordered is-fullwidth is-narrow">
+    <thead>
+        <tr>
+            <th>BA No</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Rank</th>
+            <th>Unit</th>
+            <th>Subunit</th>
+            <th>Appointment</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let officer of officers">
+            <td>{{officer.ba_no}}</td>
+            <td>{{officer.username}}</td>
+            <td>{{officer.name}}</td>
+            <td>{{officer.email}}</td>
+            <td>{{officer.password}}</td>
+            <td>{{officer.rank}}</td>
+            <td>{{officer.unit}}</td>
+            <td>{{officer.subunit}}</td>
+            <td>{{officer.appointment}}</td>
+            <td>{{officer.contact}}</td>
+            <td>{{officer.address}}</td>
+            <td>{{officer.starting_date}}</td>
+            <td>{{officer.ending_date}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<app-loading-bar *ngIf="requesting"></app-loading-bar>

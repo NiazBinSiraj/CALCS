@@ -1,1 +1,5 @@
-<h1>Hello World!</h1>
+<app-clerk-tab #clerkTab></app-clerk-tab>
+<app-honour-board *ngIf="clerkTab.hounerBoardIsActive"></app-honour-board>
+<app-soldiers-info *ngIf="clerkTab.soldiersinfoIsActive"></app-soldiers-info>
+<app-performance *ngIf="clerkTab.performanceIsActive"></app-performance>
+<app-punishment *ngIf="clerkTab.punishmentIsActive"></app-punishment>

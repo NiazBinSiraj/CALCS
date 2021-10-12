@@ -38,7 +38,7 @@
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditName($event)" class="input" type="text" placeholder="BA No">
+            <input (keyup)="OnEditName($event)" class="input" type="text" placeholder="Name">
           </p>
         </div>
       </td>
@@ -107,9 +107,16 @@
               Subunit
             </a>
           </p>
-          <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditSubunit($event)" class="input" type="text" placeholder="Subunit">
-          </p>
+          <div class="control" style="width: 60%;">
+            <div class="select" style="width:100%">
+              <select (change)="OnEditSubunit($event)" style="width: 100%;">
+                <option>A coy</option>
+                <option>B coy</option>
+                <option>C coy</option>
+                <option>D coy</option>
+              </select>
+            </div>
+          </div>
         </div>
       </td>
     </tr>
@@ -156,3 +163,5 @@
     </tr>
   </tbody>
 </table>
+
+<app-loading-bar *ngIf="requesting"></app-loading-bar>
