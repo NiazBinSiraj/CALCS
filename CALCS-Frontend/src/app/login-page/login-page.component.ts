@@ -52,6 +52,21 @@ export class LoginPageComponent implements OnInit {
           AppState.instance.user_type = "clerk";
           await this.clerkService.GetByID(AppState.instance.related_id).then((res) => {
             AppState.instance.username = res.user.username;
+            
+            AppState.instance.clerk.personal_no = res.personal_no;
+            AppState.instance.clerk.username = res.user.username;
+            AppState.instance.clerk.name = res.name;
+            AppState.instance.clerk.email = res.user.email;
+            AppState.instance.clerk.password = res.password;
+            AppState.instance.clerk.unit = res.unit;
+            AppState.instance.clerk.subunit = res.subunit;
+            AppState.instance.clerk.rank = res.rank;
+            AppState.instance.clerk.contact = res.contact;
+            AppState.instance.clerk.address = res.address;
+            AppState.instance.clerk.profile_pic = res.profile_clerk;
+            AppState.instance.clerk.starting_date = res.starting_date;
+            AppState.instance.clerk.ending_date = res.ending_date;
+
             AppState.instance.isLoggedIn = true;
             this.requesting = false;
             this.router.navigate(['clerk']);

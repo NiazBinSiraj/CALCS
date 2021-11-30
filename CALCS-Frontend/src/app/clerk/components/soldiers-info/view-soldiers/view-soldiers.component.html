@@ -14,10 +14,11 @@
             <th>Commision Date</th>
             <th>Mission</th>
             <th>Previous Company</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let soldier of soldiers">
+        <tr *ngFor="let soldier of soldiers; let i = index">
             <td>{{soldier.personal_no}}</td>
             <td>{{soldier.name}}</td>
             <td>{{soldier.rank}}</td>
@@ -30,6 +31,9 @@
             <td>{{soldier.commision_date}}</td>
             <td>{{soldier.mission}}</td>
             <td>{{soldier.previous_company}}</td>
+            <td>
+                
+            </td>
         </tr>
     </tbody>
 </table>

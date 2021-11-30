@@ -1,6 +1,6 @@
 import { SoldierServiceService } from './../../../../services/soldierService/soldier-service.service';
 import { Soldier } from './../../../../models/soldier';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-view-soldiers',
@@ -11,6 +11,7 @@ export class ViewSoldiersComponent implements OnInit {
 
   requesting:boolean = false;
   soldiers:Soldier[] = [];
+  dropdownIsActive:boolean[] = [];
   constructor(private SoldierService:SoldierServiceService) { }
 
   ngOnInit(): void {
@@ -48,4 +49,8 @@ export class ViewSoldiersComponent implements OnInit {
     });
   }
 
+  OnClickDropdown(i:any)
+  {
+    this.dropdownIsActive[i] = true;
+  }
 }
