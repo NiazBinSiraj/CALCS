@@ -1,3 +1,4 @@
+import { OfficerServiceService } from './../services/officerService/officer-service.service';
 import { AppState } from 'src/app-state';
 import { Component, OnInit } from '@angular/core';
 import { AuthserviceService } from '../services/authservice.service';
@@ -26,7 +27,7 @@ export class LoginPageComponent implements OnInit {
     password: ""
   };
 
-  constructor(private authService: AuthserviceService, private router: Router, private clerkService: ClerkServiceService) { }
+  constructor(private authService: AuthserviceService, private router: Router, private clerkService: ClerkServiceService, private officerService:OfficerServiceService) { }
 
   ngOnInit(): void {
 
@@ -70,6 +71,36 @@ export class LoginPageComponent implements OnInit {
             AppState.instance.isLoggedIn = true;
             this.requesting = false;
             this.router.navigate(['clerk']);
+          }).catch((err) =>{
+            this.requesting = false;
+            alert(err.error + " " + err.errorStatus);
+            console.log(err);
+          });
+        }
+        else if (res.type == "officer") {
+          AppState.instance.related_id = res.related_id;
+          AppState.instance.user_type = "officer";
+          await this.officerService.GetByID(AppState.instance.related_id).then((res) => {
+            AppState.instance.username = res.user.username;
+            
+            AppState.instance.officer.ba_no = res.ba_no;
+            AppState.instance.officer.username = res.user.username;
+            AppState.instance.officer.name = res.name;
+            AppState.instance.officer.email = res.user.email;
+            AppState.instance.officer.password = res.password;
+            AppState.instance.officer.unit = res.unit;
+            AppState.instance.officer.subunit = res.subunit;
+            AppState.instance.officer.rank = res.rank;
+            AppState.instance.officer.contact = res.contact;
+            AppState.instance.officer.address = res.address;
+            AppState.instance.officer.profile_pic = res.profile_clerk;
+            AppState.instance.officer.starting_date = res.starting_date;
+            AppState.instance.officer.ending_date = res.ending_date;
+            AppState.instance.officer.appointment = res.appointment;
+
+            AppState.instance.isLoggedIn = true;
+            this.requesting = false;
+            this.router.navigate(['officer']);
           }).catch((err) =>{
             this.requesting = false;
             alert(err.error + " " + err.errorStatus);

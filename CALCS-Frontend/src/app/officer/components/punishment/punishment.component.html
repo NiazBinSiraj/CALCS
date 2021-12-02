@@ -1,0 +1,19 @@
+<div style="display: flex; flex-direction:  column; justify-content: center; align-items: center; width: 100%;">
+    <h2 class="title is-2">Punishment and Reward</h2>
+
+    <table class="table is-bordered" style="width: 90%;">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Observations</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let observation of observations let i=index;">
+                <td style="width:10%;">{{i+1}}</td>
+                <td>{{observation.message}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

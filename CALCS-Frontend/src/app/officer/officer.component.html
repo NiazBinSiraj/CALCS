@@ -1,0 +1,5 @@
+<app-officer-tab #officerTab></app-officer-tab>
+<app-honour-board *ngIf="officerTab.hounerBoardIsActive"></app-honour-board>
+<app-soldiers-info *ngIf="officerTab.soldiersinfoIsActive"></app-soldiers-info>
+<app-performance *ngIf="officerTab.performanceIsActive"></app-performance>
+<app-punishment *ngIf="officerTab.punishmentIsActive"></app-punishment>

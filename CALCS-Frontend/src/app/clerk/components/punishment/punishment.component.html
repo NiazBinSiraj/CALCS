@@ -1,1 +1,68 @@
-<p>punishment works!</p>
+<div style="display: flex; flex-direction:  column; justify-content: center; align-items: center; width: 100%;">
+    <h2 class="title is-2">Punishment and Reward</h2>
+    <div class="field has-addons" style="width: 90%;">
+        <div class="control is-expanded">
+            <input (keyup)="OnEditObservation($event)" class="input" type="text" placeholder="Observations"
+                value={{newObservation.message}}>
+        </div>
+        <div class="control">
+            <a (click)="OnClickAdd()" class="button is-success">
+                ADD
+            </a>
+        </div>
+    </div>
+
+    <div class="table-container" style="width: 90%;">
+        <table class="table is-fullwidth is-bordered">
+            <thead>
+                <tr>
+                    <th>Observations</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let observation of observations; let i=index">
+                    <td>
+                        <p *ngIf="isEdit != i"> {{observation.message}} </p>
+                        <div *ngIf="isEdit == i" class="field">
+                            <div class="control">
+                                <input (keyup)="OnEditObservation($event)" type="text" class="input"
+                                    value={{newObservation.message}}>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 30%;">
+                        <div *ngIf="isEdit != i" class="field is-grouped" style="justify-content: center; align-items: center;">
+                            <p class="control">
+                                <button (click)="OnClickEdit(i)" class="button is-link">
+                                    Edit
+                                </button>
+                            </p>
+                            <p class="control">
+                                <button (click)="OnClickDelete(i)" class="button is-danger">
+                                    Delete
+                                </button>
+                            </p>
+                        </div>
+
+                        <div *ngIf="isEdit == i" class="field is-grouped" style="justify-content: center; align-items: center;">
+                            <p class="control">
+                                <button (click)="OnClickSave(i)" class="button is-link">
+                                    Save
+                                </button>
+                            </p>
+                            <p class="control">
+                                <button (click)="OnClickCancel()" class="button is-danger">
+                                    Cancel
+                                </button>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<app-loading-bar *ngIf="isRequesting"></app-loading-bar>

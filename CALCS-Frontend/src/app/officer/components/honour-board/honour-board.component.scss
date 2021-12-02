@@ -1,0 +1,14 @@
+@import '../../../regular-theme.scss';
+
+.table thead td, .table thead th {
+    color: white;
+    background-color: $primary-color;
+    border-width: 1px 1px 1px;
+}
+
+.table tbody td {
+    color: black;
+    background-color: $secondary-color;
+    border-width: 1px 1px 1px;
+    border-color: white;
+}

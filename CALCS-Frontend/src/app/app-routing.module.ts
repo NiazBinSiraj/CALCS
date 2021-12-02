@@ -11,7 +11,14 @@ const routes: Routes = [
     path: 'login',
     component: LoginPageComponent
   },
-  { path: 'clerk', loadChildren: () => import('./clerk/clerk.module').then(m => m.ClerkModule) }
+  { 
+    path: 'clerk',
+    loadChildren: () => import('./clerk/clerk.module').then(m => m.ClerkModule)
+  },
+  {
+    path: 'officer',
+    loadChildren: () => import('./officer/officer.module').then(m => m.OfficerModule)
+  }
 ];
 
 @NgModule({

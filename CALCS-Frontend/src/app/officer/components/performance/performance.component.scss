@@ -1,0 +1,17 @@
+@import "../../../regular-theme.scss";
+
+.sidebar{
+    height: 86vh;
+    background-color: $secondary-color;
+}
+
+.button{
+    width: 100%;
+    background-color: $primary-color;
+    color: white;
+    margin-top: 14px;
+}
+
+.button:hover, :focus{
+    color: black;
+}

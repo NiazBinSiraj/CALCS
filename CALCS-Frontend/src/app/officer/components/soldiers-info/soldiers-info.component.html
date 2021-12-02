@@ -1,0 +1,41 @@
+<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Soldiers's Info</h2>
+<table class="table is-bordered is-fullwidth is-narrow">
+    <thead>
+        <tr>
+            <th>Personal No</th>
+            <th>Name</th>
+            <th>Rank</th>
+            <th>Unit</th>
+            <th>Subunit</th>
+            <th>Appointment</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Join Date</th>
+            <th>Commision Date</th>
+            <th>Mission</th>
+            <th>Previous Company</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let soldier of soldiers; let i = index">
+            <td>{{soldier.personal_no}}</td>
+            <td>{{soldier.name}}</td>
+            <td>{{soldier.rank}}</td>
+            <td>{{soldier.unit}}</td>
+            <td>{{soldier.subunit}}</td>
+            <td>{{soldier.appointment}}</td>
+            <td>{{soldier.contact}}</td>
+            <td>{{soldier.address}}</td>
+            <td>{{soldier.join_date}}</td>
+            <td>{{soldier.commision_date}}</td>
+            <td>{{soldier.mission}}</td>
+            <td>{{soldier.previous_company}}</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<app-loading-bar *ngIf="requesting"></app-loading-bar>

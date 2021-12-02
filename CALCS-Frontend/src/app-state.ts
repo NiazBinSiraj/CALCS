@@ -13,4 +13,5 @@ export class AppState{
     isLoggedIn:boolean = false;
 
     clerk:Clerk = new Clerk();
+    officer:Officer = new Officer();
 }
