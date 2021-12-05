@@ -48,7 +48,7 @@ export class PerformanceServiceService {
     return this.request('delete', `${baseUrl}/core/subcriterias/${subcriteria_id}`);
   }
 
-  UpdateSoldierCriteriaMarks(criteria_id:any, body:any){
+  UpdateSubCriteriaMarks(criteria_id:any, body:any){
     return this.request('post', `${baseUrl}/core/change-criteria/${criteria_id}`, body);
   }
 

@@ -9,9 +9,12 @@
     width: 100%;
     background-color: $primary-color;
     color: white;
-    margin-top: 14px;
 }
 
-.button:hover, :focus{
+.button-menu:hover, :focus{
     color: black;
+}
+
+.table td{
+    border: 0px;
 }
