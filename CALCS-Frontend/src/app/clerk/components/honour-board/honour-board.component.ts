@@ -1,3 +1,4 @@
+import { AppState } from 'src/app-state';
 import { Component, OnInit } from '@angular/core';
 import { Clerk } from 'src/app/models/clerk';
 import { ClerkServiceService } from 'src/app/services/clerkService/clerk-service.service';
@@ -25,6 +26,8 @@ export class HonourBoardComponent implements OnInit {
       
       for(let i=0; i<res.length; i++)
       {
+        if(AppState.instance.clerk.subunit != res[i].subunit) continue;
+        
         let clerk:Clerk = new Clerk();
         clerk.personal_no = res[i].personal_no;
         clerk.username = res[i].user.username;

@@ -1,17 +1,18 @@
-import { SoldierServiceService } from './../../../../services/soldierService/soldier-service.service';
-import { Soldier } from './../../../../models/soldier';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { SoldierServiceService } from './../../../services/soldierService/soldier-service.service';
+import { Component, OnInit } from '@angular/core';
+import { Soldier } from 'src/app/models/soldier';
 
 @Component({
-  selector: 'app-view-soldiers',
-  templateUrl: './view-soldiers.component.html',
-  styleUrls: ['./view-soldiers.component.scss']
+  selector: 'app-soldiers-info',
+  templateUrl: './soldiers-info.component.html',
+  styleUrls: ['./soldiers-info.component.scss']
 })
-export class ViewSoldiersComponent implements OnInit {
+export class SoldiersInfoComponent implements OnInit {
 
   requesting:boolean = false;
   soldiers:Soldier[] = [];
-  constructor(private SoldierService:SoldierServiceService) { }
+  
+  constructor(private soldierService:SoldierServiceService) { }
 
   ngOnInit(): void {
     this.GetAllSoldiers();
@@ -20,7 +21,7 @@ export class ViewSoldiersComponent implements OnInit {
   async GetAllSoldiers()
   {
     this.requesting = true;
-    await this.SoldierService.GetAll().then((res) => {
+    await this.soldierService.GetAll().then((res) => {
       
       for(let i=0; i<res.length; i++)
       {
@@ -47,4 +48,5 @@ export class ViewSoldiersComponent implements OnInit {
       console.log(err);
     });
   }
+
 }
