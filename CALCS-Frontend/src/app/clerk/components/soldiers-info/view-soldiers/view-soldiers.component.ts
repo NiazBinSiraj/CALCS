@@ -3,6 +3,8 @@ import { Observation } from './../../../../models/observation';
 import { SoldierServiceService } from './../../../../services/soldierService/soldier-service.service';
 import { Soldier } from './../../../../models/soldier';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Criteria } from 'src/app/models/criteria';
+import { SubcriteriaByCriteria } from 'src/app/models/subcriteriaByCriteria';
 
 @Component({
   selector: 'app-view-soldiers',
@@ -12,8 +14,14 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class ViewSoldiersComponent implements OnInit {
 
   modal_observation:boolean = false;
+  modal_assess:boolean = false;
   observations:Observation[] = [];
   soldier_index:number = -1;
+  criteria_index:number = -1;
+  total:number = 0;
+
+  criterias:Criteria[] = [];
+  subCriterias:SubcriteriaByCriteria = new SubcriteriaByCriteria;
   
   requesting:boolean = false;
   soldiers:Soldier[] = [];
@@ -69,6 +77,37 @@ export class ViewSoldiersComponent implements OnInit {
     });
   }
 
+  async GetAllCriteria(){
+    this.requesting = true;
+    this.performanceService.GetAllCriteria().then((res) =>{
+      this.criterias = res;
+      this.requesting = false;
+      if(this.criterias.length != 0)
+      {
+        this.criteria_index = 0;
+        this.GetAllSubCriteria();
+      }
+    }).catch((err) =>{
+      this.requesting = false;
+      console.log(err);
+      window.alert("ERROR");
+    });
+  }
+
+  async GetAllSubCriteria(){
+    this.requesting = true;
+    this.performanceService.GetAssesment(this.soldiers[this.soldier_index].id, this.criterias[this.criteria_index].id).then((res) =>{
+      this.subCriterias = res;
+      this.CalcTotal();
+      this.requesting = false;
+    }).catch((err) =>{
+      this.requesting = false;
+      console.log(err);
+      window.alert("ERROR");
+    });
+  }
+
+
   OnClickObservation(ind:number){
     this.soldier_index = ind;
     this.modal_observation = true;
@@ -76,7 +115,31 @@ export class ViewSoldiersComponent implements OnInit {
     this.GetSoldierObservation();
   }
 
+  OnClickAssess(ind:number)
+  {
+    this.soldier_index = ind;
+    this.modal_assess = true;
+    this.modal_observation = false;
+
+    this.GetAllCriteria();
+  }
+
   OnClickClose(){
     this.modal_observation = false;
+    this.modal_assess = false;
+  }
+
+  OnClickCriteria(ind:number)
+  {
+    this.criteria_index = ind;
+    this.GetAllSubCriteria();
+  }
+
+  CalcTotal(){
+    this.total = 0;
+    for(let i=0; i<this.subCriterias.sub_criterias.length; i++)
+    {
+      this.total += this.subCriterias.sub_criterias[i].mark;
+    }
   }
 }
