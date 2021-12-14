@@ -26,6 +26,7 @@ export class SoldiersInfoComponent implements OnInit {
   modal_observation:boolean = false;
   soldier_index:number = -1;
   criteria_index:number = -1;
+  total:number = 0;
   
   constructor(private soldierService:SoldierServiceService, private performanceService:PerformanceServiceService) { }
 
@@ -125,6 +126,7 @@ export class SoldiersInfoComponent implements OnInit {
     this.requesting = true;
     this.performanceService.GetAssesment(this.soldiers[this.soldier_index].id, this.criterias[this.criteria_index].id).then((res) =>{
       this.subCriterias = res;
+      this.CalcTotal();
       this.requesting = false;
     }).catch((err) =>{
       this.requesting = false;
@@ -207,7 +209,16 @@ export class SoldiersInfoComponent implements OnInit {
   }
 
   OnEditSubCriteriaMark(event:any, ind:number){
-    this.subCriterias.sub_criterias[ind].mark = event.target.value;
+    this.subCriterias.sub_criterias[ind].mark = parseInt(event.target.value);
+    this.CalcTotal();
+  }
+
+  CalcTotal(){
+    this.total = 0;
+    for(let i=0; i<this.subCriterias.sub_criterias.length; i++)
+    {
+      this.total += this.subCriterias.sub_criterias[i].mark;
+    }
   }
 
 }

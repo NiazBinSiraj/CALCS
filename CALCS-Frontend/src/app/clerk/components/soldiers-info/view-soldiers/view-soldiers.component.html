@@ -1,65 +1,117 @@
 <h2 class="title is-2" style="text-align: center; margin-top: 10px;">Soldiers's Info</h2>
 <table class="table is-bordered is-fullwidth is-narrow">
-    <thead>
-        <tr>
-            <th>Personal No</th>
-            <th>Name</th>
-            <th>Rank</th>
-            <th>Unit</th>
-            <th>Subunit</th>
-            <th>Appointment</th>
-            <th>Contact</th>
-            <th>Address</th>
-            <th>Join Date</th>
-            <th>Commision Date</th>
-            <th>Mission</th>
-            <th>Previous Company</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let soldier of soldiers; let i = index">
-            <td>{{soldier.personal_no}}</td>
-            <td>{{soldier.name}}</td>
-            <td>{{soldier.rank}}</td>
-            <td>{{soldier.unit}}</td>
-            <td>{{soldier.subunit}}</td>
-            <td>{{soldier.appointment}}</td>
-            <td>{{soldier.contact}}</td>
-            <td>{{soldier.address}}</td>
-            <td>{{soldier.join_date}}</td>
-            <td>{{soldier.commision_date}}</td>
-            <td>{{soldier.mission}}</td>
-            <td>{{soldier.previous_company}}</td>
-            <td>
-                <div class="buttons">
-                    <button class="button is-success">Edit Info</button>
-                    <button class="button is-success">Transfer</button>
-                    <button class="button is-success">Assessment</button>
-                    <button (click)="OnClickObservation(i)" class="button is-success">Observations</button>
-                    <button class="button is-success">Delete</button>
-                    <button class="button is-success">Generate PDF</button>
-                </div>
-            </td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Personal No</th>
+      <th>Name</th>
+      <th>Rank</th>
+      <th>Unit</th>
+      <th>Subunit</th>
+      <th>Appointment</th>
+      <th>Contact</th>
+      <th>Address</th>
+      <th>Join Date</th>
+      <th>Commision Date</th>
+      <th>Mission</th>
+      <th>Previous Company</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let soldier of soldiers; let i = index">
+      <td>{{soldier.personal_no}}</td>
+      <td>{{soldier.name}}</td>
+      <td>{{soldier.rank}}</td>
+      <td>{{soldier.unit}}</td>
+      <td>{{soldier.subunit}}</td>
+      <td>{{soldier.appointment}}</td>
+      <td>{{soldier.contact}}</td>
+      <td>{{soldier.address}}</td>
+      <td>{{soldier.join_date}}</td>
+      <td>{{soldier.commision_date}}</td>
+      <td>{{soldier.mission}}</td>
+      <td>{{soldier.previous_company}}</td>
+      <td>
+        <div class="buttons">
+          <button class="button is-success">Edit Info</button>
+          <button class="button is-success">Transfer</button>
+          <button (click)="OnClickAssess(i)" class="button is-success">Assessment</button>
+          <button (click)="OnClickObservation(i)" class="button is-success">Observations</button>
+          <button class="button is-success">Delete</button>
+          <button class="button is-success">Generate PDF</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <app-loading-bar *ngIf="requesting"></app-loading-bar>
 
-  <!--Observation Modal-->
-  <div class="modal" [ngClass]="{'is-active':modal_observation}">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Edit Observations</p>
-        <button class="delete" aria-label="close"></button>
-      </header>
-      <section class="modal-card-body">
-          <li *ngFor="let observation of observations; let i = index">{{observation.message}}</li>
-      </section>
-      <footer class="modal-card-foot">
-        <button (click)="OnClickClose()" class="button">Cancel</button>
-      </footer>
-    </div>
+<!--Observation Modal-->
+<div class="modal" [ngClass]="{'is-active':modal_observation}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit Observations</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <li *ngFor="let observation of observations; let i = index">{{observation.message}}</li>
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="OnClickClose()" class="button">Cancel</button>
+    </footer>
   </div>
+</div>
+
+
+<!--Assess Modal-->
+<div class="modal" [ngClass]="{'is-active':modal_assess}">
+  <div class="modal-background"></div>
+  <div class="modal-card" style="width: 70%;">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Assess</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+      
+      <div class="columns">
+        <div class="column is-3 sidebar" style="padding-right: 0px; display: flex;justify-content: center; align-items: center; flex-direction: column;">
+          <span *ngFor="let criteria of criterias; let i= index" style="width: 100%;">
+            <button (click)="OnClickCriteria(i)" style="width: 90%; margin-top: 14px;" class="button">{{criteria.name}}</button>
+          </span>
+        </div>
+
+        <div class="column">
+          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
+              <table class="table is-fullwidth container">
+                  <tbody>
+                      <tr *ngFor="let subcriteria of subCriterias.sub_criterias; let i=index;">
+                          <td>
+                              <div class="field has-addons">
+                                  <p class="control" style="width: 30%;">
+                                    <a class="button is-static is-fullwidth form-head-1">
+                                      {{subcriteria.name}}
+                                    </a>
+                                  </p>
+                                  <p class="control" style="width: 60%;">
+                                    <input readonly class="input" type="number" value={{subcriteria.mark}}>
+                                  </p>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <input readonly type="number" class="input" value={{total}}>
+          </div>
+      </div>
+
+    </div>
+
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="OnClickClose()" class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
