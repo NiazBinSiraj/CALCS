@@ -56,8 +56,8 @@ export class PerformanceServiceService {
     return this.request('get', `${baseUrl}/core/assessment/soldier/${soldier_id}/criteria/${criteria_id}`);
   }
 
-  SetAssesment(soldier_id:any, criteria_id:any){
-    return this.request('post', `${baseUrl}/core/assessment/soldier/${soldier_id}/criteria/${criteria_id}`);
+  SetAssesment(soldier_id:any, criteria_id:any, body:any){
+    return this.request('post', `${baseUrl}/core/assessment/soldier/${soldier_id}/criteria/${criteria_id}/`, body);
   }
 
   CreateObservation(body:any){

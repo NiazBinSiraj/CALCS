@@ -1,3 +1,4 @@
+import { SubcriteriaByCriteria } from './../../../models/subcriteriaByCriteria';
 import { Criteria } from './../../../models/criteria';
 import { Observation } from './../../../models/observation';
 import { SoldierServiceService } from './../../../services/soldierService/soldier-service.service';
@@ -18,11 +19,13 @@ export class SoldiersInfoComponent implements OnInit {
   soldiers:Soldier[] = [];
   observations:Observation[] = [];
   criterias:Criteria[] = [];
+  subCriterias:SubcriteriaByCriteria = new SubcriteriaByCriteria;
   soldier_observation:Observation[] = [];
 
   modal_assess:boolean = false;
   modal_observation:boolean = false;
   soldier_index:number = -1;
+  criteria_index:number = -1;
   
   constructor(private soldierService:SoldierServiceService, private performanceService:PerformanceServiceService) { }
 
@@ -106,11 +109,34 @@ export class SoldiersInfoComponent implements OnInit {
     this.performanceService.GetAllCriteria().then((res) =>{
       this.criterias = res;
       this.requesting = false;
+      if(this.criterias.length != 0)
+      {
+        this.criteria_index = 0;
+        this.GetAllSubCriteria();
+      }
     }).catch((err) =>{
       this.requesting = false;
       console.log(err);
       window.alert("ERROR");
     });
+  }
+
+  async GetAllSubCriteria(){
+    this.requesting = true;
+    this.performanceService.GetAssesment(this.soldiers[this.soldier_index].id, this.criterias[this.criteria_index].id).then((res) =>{
+      this.subCriterias = res;
+      this.requesting = false;
+    }).catch((err) =>{
+      this.requesting = false;
+      console.log(err);
+      window.alert("ERROR");
+    });
+  }
+
+  OnClickCriteria(ind:number)
+  {
+    this.criteria_index = ind;
+    this.GetAllSubCriteria();
   }
 
   OnClickAssess(ind:number)
@@ -133,11 +159,12 @@ export class SoldiersInfoComponent implements OnInit {
     this.GetSoldierObservation();
   }
 
-  OnClickClose(){
+  OnClickClose(ind:number){
     for(let i=0; i<this.observations.length; i++) this.observation_checked[i] = false;
     this.modal_assess = false;
     this.modal_observation = false;
-    this.GetSoldierObservation();
+    if(ind == 0) this.GetSoldierObservation();
+    else this.GetAllSubCriteria();
   }
 
   async OnClickSaveObservation(){
@@ -153,8 +180,15 @@ export class SoldiersInfoComponent implements OnInit {
     });
   }
 
-  OnClickSaveAssess(){
-
+  async OnClickSaveAssess(){
+    this.requesting = true;
+    await this.performanceService.SetAssesment(this.soldiers[this.soldier_index].id, this.criterias[this.criteria_index].id, this.subCriterias).then((res) =>{
+      this.requesting = false;
+    }).catch((err) =>{
+      this.requesting = false;
+      console.log(err);
+      window.alert("ERROR");
+    });
   }
 
   OnChangeCheckbox(event:any, obs_ind:number)
@@ -170,6 +204,10 @@ export class SoldiersInfoComponent implements OnInit {
         if(this.soldier_observation[i].id == this.observations[obs_ind].id) this.soldier_observation.splice(i,1);
       }
     }
+  }
+
+  OnEditSubCriteriaMark(event:any, ind:number){
+    this.subCriterias.sub_criterias[ind].mark = event.target.value;
   }
 
 }
