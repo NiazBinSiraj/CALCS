@@ -1,4 +1,5 @@
 export class Soldier{
+    id!:number;
     personal_no!: number;
     name!: string;
     rank!: string;

@@ -1,3 +1,5 @@
+import { PerformanceServiceService } from 'src/app/services/performanceService/performance-service.service';
+import { Observation } from './../../../../models/observation';
 import { SoldierServiceService } from './../../../../services/soldierService/soldier-service.service';
 import { Soldier } from './../../../../models/soldier';
 import { Component, HostListener, OnInit } from '@angular/core';
@@ -9,9 +11,13 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class ViewSoldiersComponent implements OnInit {
 
+  modal_observation:boolean = false;
+  observations:Observation[] = [];
+  soldier_index:number = -1;
+  
   requesting:boolean = false;
   soldiers:Soldier[] = [];
-  constructor(private SoldierService:SoldierServiceService) { }
+  constructor(private SoldierService:SoldierServiceService, private performanceService:PerformanceServiceService) { }
 
   ngOnInit(): void {
     this.GetAllSoldiers();
@@ -25,6 +31,7 @@ export class ViewSoldiersComponent implements OnInit {
       for(let i=0; i<res.length; i++)
       {
         let soldier:Soldier = new Soldier();
+        soldier.id = res[i].id;
         soldier.personal_no = res[i].personal_no;
         soldier.name = res[i].name;
         soldier.rank = res[i].rank;
@@ -46,5 +53,30 @@ export class ViewSoldiersComponent implements OnInit {
       alert(err.error + " " + err.errorText);
       console.log(err);
     });
+  }
+
+  async GetSoldierObservation()
+  {
+    this.requesting = true;
+    await this.performanceService.GetSoldierObservation(this.soldiers[this.soldier_index].id).then((res) =>{
+      this.observations = res;
+
+      this.requesting = false;
+    }).catch((err) =>{
+      this.requesting = false;
+      console.log(err);
+      window.alert("ERROR");
+    });
+  }
+
+  OnClickObservation(ind:number){
+    this.soldier_index = ind;
+    this.modal_observation = true;
+
+    this.GetSoldierObservation();
+  }
+
+  OnClickClose(){
+    this.modal_observation = false;
   }
 }

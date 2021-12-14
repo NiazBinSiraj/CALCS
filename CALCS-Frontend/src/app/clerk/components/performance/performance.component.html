@@ -1,1 +1,50 @@
-<p>performance works!</p>
+<div class="columns">
+    <div class="column is-3 sidebar"
+        style="padding-right: 0px; display: flex;justify-content: center; align-items: center; flex-direction: column;">
+        <span *ngFor="let criteria of criterias; let i= index" style="width: 100%;">
+            <button (click)="OnClickCriteria(i)" style="width: 90%; margin-top: 14px;"
+                class="button">{{criteria.name}}</button>
+        </span>
+    </div>
+    <div class="column">
+
+        <div
+            style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
+            <!--Total Marks of Criteria-->
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Total</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input readonly class="input" type="number" value={{newCriteriaMark}}>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table is-fullwidth container">
+                <tbody>
+                    <tr *ngFor="let subcriteria of subcriterias.sub_criterias; let i=index;">
+                        <td>
+                            <div class="field has-addons">
+                                <p class="control" style="width: 30%;">
+                                    <a class="button is-static is-fullwidth form-head-1">
+                                        {{subcriteria.name}}
+                                    </a>
+                                </p>
+                                <p class="control" style="width: 60%;">
+                                    <input readonly class="input" type="number" value={{subcriteria.mark}}>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<app-loading-bar *ngIf="isRequesting"></app-loading-bar>

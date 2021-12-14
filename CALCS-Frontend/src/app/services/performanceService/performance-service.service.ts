@@ -49,7 +49,7 @@ export class PerformanceServiceService {
   }
 
   UpdateSubCriteriaMarks(criteria_id:any, body:any){
-    return this.request('post', `${baseUrl}/core/change-criteria/${criteria_id}`, body);
+    return this.request('post', `${baseUrl}/core/change-criteria/${criteria_id}/`, body);
   }
 
   GetAssesment(soldier_id:any, criteria_id:any){
@@ -81,12 +81,12 @@ export class PerformanceServiceService {
     return this.request('delete', `${baseUrl}/core/observations/${observation_id}`);
   }
 
-  CreateSoldierObservation(soldier_id:any){
-    return this.request('post', `${baseUrl}/core/observations/soldier/${soldier_id}`);
+  CreateSoldierObservation(soldier_id:any, body:any){
+    return this.request('post', `${baseUrl}/core/observations/soldier/${soldier_id}/`, body);
   }
 
   GetSoldierObservation(soldier_id:any){
-    return this.request('get', `${baseUrl}/core/observations/soldier/${soldier_id}`);
+    return this.request('get', `${baseUrl}/core/observations/soldier/${soldier_id}/`);
   }
 
 }
