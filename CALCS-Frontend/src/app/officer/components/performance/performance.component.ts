@@ -84,6 +84,7 @@ export class PerformanceComponent implements OnInit {
     await this.performanceService.GetAllSubCriteria(this.criteria_id).then((res) =>{
       this.subcriterias = res;
       this.newSubCriteriaWithCriteria = res;
+      this.newCriteriaMark = this.newSubCriteriaWithCriteria.mark;
       console.log(res);
       this.isRequesting = false;
     }).catch((err) =>{
@@ -122,20 +123,21 @@ export class PerformanceComponent implements OnInit {
 
   OnEditTotalMark(event:any)
   {
-    this.newSubCriteriaWithCriteria.mark = event.target.value;
+    this.newSubCriteriaWithCriteria.mark = parseInt(event.target.value);
   }
   OnEditSubCriteriaMark(event:any, id:any)
   {
-    this.newSubCriteriaWithCriteria.sub_criterias[id].mark = event.target.value;
+    this.newSubCriteriaWithCriteria.sub_criterias[id].mark = parseInt(event.target.value);
   }
 
   OnClickSave()
   {
-    let sum:number  = 0;
+    let sum:number = 0;
 
     for(let i=0; i<this.subcriterias.sub_criterias.length; i++)
     {
-      sum+=this.newSubCriteriaWithCriteria.sub_criterias[i].mark;
+      sum=sum+this.newSubCriteriaWithCriteria.sub_criterias[i].mark;
+      console.log(this.newSubCriteriaWithCriteria.sub_criterias[i].mark);
     }
 
     if(this.newSubCriteriaWithCriteria.mark != sum)
@@ -146,8 +148,17 @@ export class PerformanceComponent implements OnInit {
 
     else
     {
+      let body = Object.assign(this.newSubCriteriaWithCriteria);
+      for(let i=0; i<body.sub_criterias.length; i++)
+      {
+        delete body.sub_criterias[i].name;
+      }
+      
+      console.log(body);
+      
+      
       this.isRequesting = true;
-      this.performanceService.UpdateSubCriteriaMarks(this.criteria_id, this.newSubCriteriaWithCriteria).then((res) =>{
+      this.performanceService.UpdateSubCriteriaMarks(this.criteria_id, body).then((res) =>{
         this.isRequesting = false;
         this.newSubCriteriaWithCriteria = new SubcriteriaByCriteria;
         this.GetAllSubcriteria();

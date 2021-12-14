@@ -1,0 +1,31 @@
+@import "../../../regular-theme.scss";
+
+.sidebar{
+    height: 86vh;
+    background-color: $secondary-color;
+}
+
+.button{
+    width: 100%;
+    background-color: $primary-color;
+    color: white;
+}
+
+.button-menu:hover, :focus{
+    color: black;
+}
+
+.table td{
+    border: 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

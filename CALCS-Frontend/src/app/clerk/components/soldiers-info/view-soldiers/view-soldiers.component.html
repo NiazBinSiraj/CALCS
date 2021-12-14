@@ -32,10 +32,34 @@
             <td>{{soldier.mission}}</td>
             <td>{{soldier.previous_company}}</td>
             <td>
-                
+                <div class="buttons">
+                    <button class="button is-success">Edit Info</button>
+                    <button class="button is-success">Transfer</button>
+                    <button class="button is-success">Assessment</button>
+                    <button (click)="OnClickObservation(i)" class="button is-success">Observations</button>
+                    <button class="button is-success">Delete</button>
+                    <button class="button is-success">Generate PDF</button>
+                </div>
             </td>
         </tr>
     </tbody>
 </table>
 
 <app-loading-bar *ngIf="requesting"></app-loading-bar>
+
+  <!--Observation Modal-->
+  <div class="modal" [ngClass]="{'is-active':modal_observation}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Edit Observations</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+          <li *ngFor="let observation of observations; let i = index">{{observation.message}}</li>
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="OnClickClose()" class="button">Cancel</button>
+      </footer>
+    </div>
+  </div>

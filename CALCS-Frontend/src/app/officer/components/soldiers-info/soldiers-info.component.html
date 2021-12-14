@@ -1,4 +1,5 @@
 <h2 class="title is-2" style="text-align: center; margin-top: 10px;">Soldiers's Info</h2>
+<div class="table-container">
 <table class="table is-bordered is-fullwidth is-narrow">
     <thead>
         <tr>
@@ -32,10 +33,108 @@
             <td>{{soldier.mission}}</td>
             <td>{{soldier.previous_company}}</td>
             <td>
-                
+                <div class="buttons">
+                    <button (click)="OnClickAssess(i)" class="button is-success">Assess</button>
+                    <button (click)="OnClickObservations(i)" class="button is-success">Observations</button>
+                </div>
             </td>
         </tr>
     </tbody>
 </table>
-
+</div>
 <app-loading-bar *ngIf="requesting"></app-loading-bar>
+
+<!--Assess Modal-->
+<div class="modal" [ngClass]="{'is-active':modal_assess}">
+    <div class="modal-background"></div>
+    <div class="modal-card" style="width: 70%;">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Assess</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        
+        <div class="columns">
+          <div class="column is-3 sidebar" style="padding-right: 0px; display: flex;justify-content: center; align-items: center; flex-direction: column;">
+            <span *ngFor="let criteria of criterias; let i= index" style="width: 100%;">
+              <button style="width: 90%; margin-top: 14px;" class="button">{{criteria.name}}</button>
+            </span>
+          </div>
+        </div>
+
+        <!-- <div class="column">
+        
+          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
+              
+              <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Total</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <input (keyup)="OnEditTotalMark($event)" class="input" type="number" value={{newCriteriaMark}}>
+                      </p>
+                    </div>
+                  </div>
+              </div>
+  
+              <table class="table is-fullwidth container">
+                  <tbody>
+                      <tr *ngFor="let subcriteria of subcriterias.sub_criterias; let i=index;">
+                          <td>
+                              <div class="field has-addons">
+                                  <p class="control" style="width: 30%;">
+                                    <a class="button is-static is-fullwidth form-head-1">
+                                      {{subcriteria.name}}
+                                    </a>
+                                  </p>
+                                  <p class="control" style="width: 60%;">
+                                    <input (keyup)="OnEditSubCriteriaMark($event, i)" class="input" type="number" value={{subcriteria.mark}}>
+                                  </p>
+                                  <p class="control">
+                                      <button (click)="OnClickDelete(i)" class="button" style="background-color: red;">Delete</button>
+                                  </p>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+  
+              <button (click)="OnClickSave()" *ngIf="subcriterias.sub_criterias.length != 0" class="button">Save</button>
+          </div>
+  
+      </div> -->
+
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="OnClickSaveAssess()" class="button is-success">Save changes</button>
+        <button (click)="OnClickClose()" class="button">Cancel</button>
+      </footer>
+    </div>
+  </div>
+
+
+  <!--Observation Modal-->
+  <div class="modal" [ngClass]="{'is-active':modal_observation}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Edit Observations</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+          <li *ngFor="let observation of observations; let i = index">
+            <label class="checkbox">
+                <input [checked]="observation_checked[i] == true " (change)="OnChangeCheckbox($event, i)" type="checkbox">
+                {{observation.message}}
+            </label>
+          </li>
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="OnClickSaveObservation()" class="button is-success">Save changes</button>
+        <button (click)="OnClickClose()" class="button">Cancel</button>
+      </footer>
+    </div>
+  </div>

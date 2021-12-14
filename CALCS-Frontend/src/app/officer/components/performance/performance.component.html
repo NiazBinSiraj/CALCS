@@ -15,7 +15,7 @@
                 <div class="field-body">
                   <div class="field">
                     <p class="control">
-                      <input class="input" type="text" value={{newCriteriaMark}}>
+                      <input (keyup)="OnEditTotalMark($event)" class="input" type="number" value={{newCriteriaMark}}>
                     </p>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
                                   </a>
                                 </p>
                                 <p class="control" style="width: 60%;">
-                                  <input class="input" type="text" value={{subcriteria.mark}}>
+                                  <input (keyup)="OnEditSubCriteriaMark($event, i)" class="input" type="number" value={{subcriteria.mark}}>
                                 </p>
                                 <p class="control">
                                     <button (click)="OnClickDelete(i)" class="button" style="background-color: red;">Delete</button>
@@ -55,7 +55,7 @@
                 </tbody>
             </table>
 
-            <button *ngIf="subcriterias.sub_criterias.length != 0" class="button">Save</button>
+            <button (click)="OnClickSave()" *ngIf="subcriterias.sub_criterias.length != 0" class="button">Save</button>
         </div>
 
     </div>
