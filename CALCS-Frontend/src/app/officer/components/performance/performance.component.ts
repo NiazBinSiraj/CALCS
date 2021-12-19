@@ -3,6 +3,7 @@ import { Subcriteria } from './../../../models/subcriteria';
 import { PerformanceServiceService } from 'src/app/services/performanceService/performance-service.service';
 import { Criteria } from './../../../models/criteria';
 import { Component, OnInit } from '@angular/core';
+import { AppState } from 'src/app-state';
 
 @Component({
   selector: 'app-performance',
@@ -64,7 +65,8 @@ export class PerformanceComponent implements OnInit {
   {
     let body = {
       criteria: this.criteria_id,
-      name: this.newSubcriteria.name
+      name: this.newSubcriteria.name,
+      subunit: AppState.instance.officer.subunit
     }
     this.isRequesting = true;
     await this.performanceService.CreateSubCriteria(body).then((res) =>{
@@ -81,7 +83,9 @@ export class PerformanceComponent implements OnInit {
   async GetAllSubcriteria()
   {
     this.isRequesting = true;
-    await this.performanceService.GetAllSubCriteria(this.criteria_id).then((res) =>{
+    let subunit:string = "";
+    subunit = AppState.instance.officer.subunit;
+    await this.performanceService.GetAllSubCriteria(this.criteria_id, subunit).then((res) =>{
       this.subcriterias = res;
       this.newSubCriteriaWithCriteria = res;
       this.newCriteriaMark = this.newSubCriteriaWithCriteria.mark;

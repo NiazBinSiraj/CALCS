@@ -34,4 +34,12 @@ export class SoldierServiceService {
   GetByID(soldier_id:number){
     return this.request('get', `${baseUrl}/core/soldiers/${soldier_id}/`);
   }
+
+  Delete(soldier_id:number){
+    return this.request('delete', `${baseUrl}/core/soldiers/${soldier_id}/`);
+  }
+
+  Update(soldier_id:number, body:any){
+    return this.request('put', `${baseUrl}/core/soldiers/${soldier_id}/`, body);
+  }
 }

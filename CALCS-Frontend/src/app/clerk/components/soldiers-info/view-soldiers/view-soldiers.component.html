@@ -7,13 +7,13 @@
       <th>Rank</th>
       <th>Unit</th>
       <th>Subunit</th>
+      <th>Prev. Subunit</th>
       <th>Appointment</th>
       <th>Contact</th>
-      <th>Address</th>
-      <th>Join Date</th>
-      <th>Commision Date</th>
-      <th>Mission</th>
-      <th>Previous Company</th>
+      <th>Unit Join Date</th>
+      <th>Last Promotion Date</th>
+      <th>Enrollment Date</th>
+      <th>Next Rank Due Date</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -24,21 +24,21 @@
       <td>{{soldier.rank}}</td>
       <td>{{soldier.unit}}</td>
       <td>{{soldier.subunit}}</td>
+      <td>{{soldier.previous_subunit}}</td>
       <td>{{soldier.appointment}}</td>
       <td>{{soldier.contact}}</td>
-      <td>{{soldier.address}}</td>
-      <td>{{soldier.join_date}}</td>
-      <td>{{soldier.commision_date}}</td>
-      <td>{{soldier.mission}}</td>
-      <td>{{soldier.previous_company}}</td>
+      <td>{{soldier.unit_join_date}}</td>
+      <td>{{soldier.last_promotion_date}}</td>
+      <td>{{soldier.date_of_enrollment}}</td>
+      <td>{{soldier.due_date_of_next_rank}}</td>
       <td>
         <div class="buttons">
-          <button class="button is-success">Edit Info</button>
-          <button class="button is-success">Transfer</button>
+          <button (click)="OnClickEditInfo(i)" class="button is-success">Edit Info</button>
+          <button (click)="OnClickTransfer(i)" class="button is-success">Transfer</button>
           <button (click)="OnClickAssess(i)" class="button is-success">Assessment</button>
           <button (click)="OnClickObservation(i)" class="button is-success">Observations</button>
-          <button class="button is-success">Delete</button>
-          <button class="button is-success">Generate PDF</button>
+          <button (click)="OnClickDelete(i)" class="button is-success">Delete</button>
+          <button (click)="OnClickGeneratePDF(i)" class="button is-success">Generate PDF</button>
         </div>
       </td>
     </tr>
@@ -75,42 +75,520 @@
     </header>
     <section class="modal-card-body">
       <!-- Content ... -->
-      
+
       <div class="columns">
-        <div class="column is-3 sidebar" style="padding-right: 0px; display: flex;justify-content: center; align-items: center; flex-direction: column;">
+        <div class="column is-3 sidebar"
+          style="padding-right: 0px; display: flex;justify-content: center; align-items: center; flex-direction: column;">
           <span *ngFor="let criteria of criterias; let i= index" style="width: 100%;">
-            <button (click)="OnClickCriteria(i)" style="width: 90%; margin-top: 14px;" class="button">{{criteria.name}}</button>
+            <button (click)="OnClickCriteria(i)" style="width: 90%; margin-top: 14px;"
+              class="button">{{criteria.name}}</button>
           </span>
         </div>
 
         <div class="column">
-          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
-              <table class="table is-fullwidth container">
-                  <tbody>
-                      <tr *ngFor="let subcriteria of subCriterias.sub_criterias; let i=index;">
-                          <td>
-                              <div class="field has-addons">
-                                  <p class="control" style="width: 30%;">
-                                    <a class="button is-static is-fullwidth form-head-1">
-                                      {{subcriteria.name}}
-                                    </a>
-                                  </p>
-                                  <p class="control" style="width: 60%;">
-                                    <input readonly class="input" type="number" value={{subcriteria.mark}}>
-                                  </p>
-                              </div>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-              <input readonly type="number" class="input" value={{total}}>
+          <div
+            style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
+            <table class="table is-fullwidth container">
+              <tbody>
+                <tr *ngFor="let subcriteria of subCriterias.sub_criterias; let i=index;">
+                  <td>
+                    <div class="field has-addons">
+                      <p class="control" style="width: 30%;">
+                        <a class="button is-static is-fullwidth form-head-1">
+                          {{subcriteria.name}}
+                        </a>
+                      </p>
+                      <p class="control" style="width: 60%;">
+                        <input readonly class="input" type="number" value={{subcriteria.mark}}>
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <input readonly type="number" class="input" value={{total}}>
           </div>
-      </div>
+        </div>
 
-    </div>
+      </div>
 
     </section>
     <footer class="modal-card-foot">
+      <button (click)="OnClickClose()" class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
+
+<!--Edit Info Modal-->
+<div class="modal" [ngClass]="{'is-active':modal_edit_info}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit Soldier Info</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+      <table class="table is-fullwidth container">
+        <tbody>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-1">
+                    Personal No
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditPersonalNo($event)" class="input" type="text" value={{newSoldier.personal_no}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-1">
+                    Name
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditName($event)" class="input" type="text" value={{newSoldier.name}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-2">
+                    Rank
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditRank($event)" class="input" type="text" value={{newSoldier.rank}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-2">
+                    Unit
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditUnit($event)" class="input" type="text" value={{newSoldier.unit}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-2">
+                    Appointment
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditAppointment($event)" class="input" type="text" value={{newSoldier.appointment}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-2">
+                    Contact
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditContact($event)" class="input" type="text" value={{newSoldier.contact}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-1">
+                    Join Date in Unit
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditJoinDateInUnit($event)" class="input" type="text"
+                    value={{newSoldier.unit_join_date}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-1">
+                    Date of Last Promotion
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditDateOfLastPromotion($event)" class="input" type="text"
+                    value={{newSoldier.last_promotion_date}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-1">
+                    Date of Enrollment
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditDateOfEnrollment($event)" class="input" type="text"
+                    value={{newSoldier.date_of_enrollment}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="field has-addons">
+                <p class="control" style="width: 39%;">
+                  <a class="button is-static is-fullwidth form-head-1">
+                    Due Date of Next Rank
+                  </a>
+                </p>
+                <p class="control" style="width: 60%;">
+                  <input (keyup)="OnEditDueDateOfNextRank($event)" class="input" type="text"
+                    value={{newSoldier.due_date_of_next_rank}}>
+                </p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="OnClickSaveSoldier()" class="button is-success">Save changes</button>
+      <button (click)="OnClickClose()" class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
+
+<!--Transfer Modal-->
+<div class="modal" [ngClass]="{'is-active':modal_transfer}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Modal title</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+      <div class="field has-addons">
+        <p class="control" style="width: 39%;">
+          <a class="button is-static is-fullwidth form-head-2">
+            From
+          </a>
+        </p>
+        <p class="control" style="width: 60%;">
+          <input readonly class="input" type="text" value={{newSoldier.subunit}}>
+        </p>
+      </div>
+
+      <div class="field has-addons">
+        <p class="control" style="width: 39%;">
+          <a class="button is-static is-fullwidth form-head-2">
+            To
+          </a>
+        </p>
+        <div class="control" style="width: 60%;">
+          <div class="select" style="width:100%">
+            <select (change)="OnEditToSubunit($event)" style="width: 100%;">
+              <option>A coy</option>
+              <option>B coy</option>
+              <option>C coy</option>
+              <option>D coy</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="OnClickTransferSoldier()" class="button is-success">Transfer</button>
+      <button (click)="OnClickClose()" class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
+
+<!--Generate Report-->
+<div class="modal" [ngClass]="{'is-active':modal_report}">
+  <div class="modal-background"></div>
+  <div class="modal-card" style="width: 80%;">
+    <header class="modal-card-head">
+      <p class="modal-card-title">ANNUAL CONFIDENTIAL REPORT</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+      <div style="display: flex; flex-direction: column; width: 100%; justify-content: center; align-items: center;">
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+          <p style="margin-right: 5px;">Tenure of evaluation:</p>
+          <input (keyup)="OnEditEvaluationFromDate($event)" type="text" class="input">
+          <p style="margin-left: 5px; margin-right: 5px;"> to </p>
+          <input (keyup)="OnEditEvaluationToDate($event)" type="text" class="input">
+        </div>
+
+        <div style="display: flex; width: 100%; flex-direction: column; justify-content: center; align-items: center;">
+          <table class="table is-fullwidth">
+            <tbody>
+              <tr>
+                <td>
+                  <p>Personal No, Rank and Name: </p>
+                </td>
+                <td>
+                  <input readonly type="text" class="input" value={{report_name}}>
+                </td>
+                <td>
+                  <p>Appointment: </p>
+                </td>
+                <td>
+                  <input readonly type="text" class="input" value={{report.appointment}}>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>Date of Enrollment: </p>
+                </td>
+                <td>
+                  <input readonly type="text" class="input" value={{report.date_of_enrollment}}>
+                </td>
+                <td>
+                  <p>Date of Last Promotion: </p>
+                </td>
+                <td>
+                  <input readonly type="text" class="input" value={{report.last_promotion_date}}>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>Unit: </p>
+                </td>
+                <td>
+                  <input readonly type="text" class="input" value={{report.unit}}>
+                </td>
+                <td>
+                  <p>Medical Category: </p>
+                </td>
+                <td>
+                  <input (keyup)="OnEditMedicalCategory($event)" type="text" class="input" value={{report.medical_category}}>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>First Biannual</p>
+                </td>
+                <td>
+                  <div class="control">
+                    <label class="radio">
+                      <input (change)="OnSelectFirstBiannualPass($event)" type="radio" name="first_biannual">
+                      Pass
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectFirstBiannualFail($event)" type="radio" name="first_biannual">
+                      Fail
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <p>DIV Order letter no:</p>
+                </td>
+                <td>
+                  <input (keyup)="OnEditOrderLetter1($event)" type="text" class="input" value={{report.DIV_order_letter_no_1}}>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>Second Biannual</p>
+                </td>
+                <td>
+                  <div class="control">
+                    <label class="radio">
+                      <input (change)="OnSelectSecondBiannualPass($event)" type="radio" name="second_biannual">
+                      Pass
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectSecondBiannualFail($event)" type="radio" name="second_biannual">
+                      Fail
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <p>DIV Order letter no:</p>
+                </td>
+                <td>
+                  <input (keyup)="OnEditOrderLetter2($event)" type="text" class="input" value={{report.DIV_order_letter_no_2}}>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>RET</p>
+                </td>
+                <td>
+                  <div class="control">
+                    <label class="radio">
+                      <input (change)="OnSelectRetPass($event)" type="radio" name="ret">
+                      Pass
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectRetFail($event)" type="radio" name="ret">
+                      Fail
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <p>DIV Order letter no:</p>
+                </td>
+                <td>
+                  <input (keyup)="OnEditOrderLetter3($event)" type="text" class="input" value={{report.DIV_order_letter_no_3}}>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table is-fullwidth">
+            <tbody>
+              <tr>
+                <td>Is he fit for next promotion?</td>
+                <td>
+                  <div class="control">
+                    <label class="radio">
+                      <input (change)="OnSelectFitForNextPromotionYes($event)" type="radio" name="promotion">
+                      Yes
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectFitForNextPromotionNo($event)" type="radio" name="promotion">
+                      No
+                    </label>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Is he fit for Being Instructor?</td>
+                <td>
+                  <div class="control">
+                    <label class="radio">
+                      <input (change)="OnSelectFitForBeingInstructorYes($event)" type="radio" name="instructor">
+                      Yes
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectFitForBeingInstructorNo($event)" type="radio" name="instructor">
+                      No
+                    </label>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Is he fit for Foreign Mission?</td>
+                <td>
+                  <div class="control">
+                    <label class="radio">
+                      <input (change)="OnSelectFitForForeignMissionYes($event)" type="radio" name="mission">
+                      Yes
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectFitForForeignMissionNo($event)" type="radio" name="mission">
+                      No
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table is-fullwidth">
+            <tbody>
+              <tr>
+                <td>
+                  <p>Recommendation for next Appt:</p>
+                </td>
+                <td>
+                  <input (keyup)="OnEditRecomendationForNextAppt($event)" type="text" class="input" value={{report.recommendation_for_next_appt}}>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>Special Quality (If any):</p>
+                </td>
+                <td>
+                  <input (keyup)="OnEditSpecialQuality($event)" type="text" class="input" value={{report.special_quality}}>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>Remarks By Initiating Officer:</p>
+                </td>
+                <td>
+                  <input (keyup)="OnEditRemarks($event)" type="text" class="input" value={{report.remarks_by_initiating_officer}}>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>Grade:</p>
+                </td>
+                <td>
+                  <div class="control">
+                    <label class="radio">
+                      <input (change)="OnSelectGradeOutStanding($event)" type="radio" name="grade">
+                      Outstanding (91-100)
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectGradeAboveAverage($event)" type="radio" name="grade">
+                      Above Average (81-90)
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectGradeHighAverage($event)" type="radio" name="grade">
+                      High Average (71-80)
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectGradeAverage($event)" type="radio" name="grade">
+                      Average (61-70)
+                    </label>
+                    <label class="radio">
+                      <input (change)="OnSelectGradeBelowAverage($event)" type="radio" name="grade">
+                      Below Average (51-60)
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="OnClickGenerateReport()" class="button is-success">Save changes</button>
       <button (click)="OnClickClose()" class="button">Cancel</button>
     </footer>
   </div>

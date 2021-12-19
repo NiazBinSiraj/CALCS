@@ -1,3 +1,4 @@
+import { AppState } from './../../../../app-state';
 import { Component, OnInit } from '@angular/core';
 import { SubcriteriaByCriteria } from './../../../models/subcriteriaByCriteria';
 import { Subcriteria } from './../../../models/subcriteria';
@@ -77,7 +78,9 @@ export class PerformanceComponent implements OnInit {
 
   async GetAllSubcriteria() {
     this.isRequesting = true;
-    await this.performanceService.GetAllSubCriteria(this.criteria_id).then((res) => {
+    let subunit:string = "";
+    subunit = AppState.instance.clerk.subunit;
+    await this.performanceService.GetAllSubCriteria(this.criteria_id, subunit).then((res) => {
       this.subcriterias = res;
       this.newSubCriteriaWithCriteria = res;
       this.newCriteriaMark = this.newSubCriteriaWithCriteria.mark;
