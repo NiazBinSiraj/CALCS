@@ -32,8 +32,8 @@ export class PerformanceServiceService {
     return this.request('get', `${baseUrl}/core/criterias/`);
   }
 
-  GetAllSubCriteria(criteria_id:any){
-    return this.request('get', `${baseUrl}/core/change-criteria/${criteria_id}`);
+  GetAllSubCriteria(criteria_id:any, subunit:string){
+    return this.request('get', `${baseUrl}/core/change-criteria/${criteria_id}/?subunit=${subunit}`);
   }
 
   CreateSubCriteria(body:any){
@@ -89,4 +89,14 @@ export class PerformanceServiceService {
     return this.request('get', `${baseUrl}/core/observations/soldier/${soldier_id}/`);
   }
 
+  //PDF Report
+  GetDefaultData(soldier_id:any){
+    return this.request('get', `${baseUrl}/core/report/soldier/${soldier_id}/`);
+  }
+  SubmitReport(soldier_id:any, body:any){
+    return this.request('post', `${baseUrl}/core/report/soldier/${soldier_id}/`, body);
+  }
+  CheckReport(soldier_id:any){
+    return this.request('get', `${baseUrl}/core/report/download/check/${soldier_id}/`);
+  }
 }

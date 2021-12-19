@@ -1,3 +1,4 @@
+import { AppState } from './../../../../app-state';
 import { SubcriteriaByCriteria } from './../../../models/subcriteriaByCriteria';
 import { Criteria } from './../../../models/criteria';
 import { Observation } from './../../../models/observation';
@@ -24,9 +25,14 @@ export class SoldiersInfoComponent implements OnInit {
 
   modal_assess:boolean = false;
   modal_observation:boolean = false;
+  modal_report:boolean = false;
   soldier_index:number = -1;
   criteria_index:number = -1;
   total:number = 0;
+
+  download_url = "";
+  report_status:string = "";
+  pdf_found:boolean = false;
   
   constructor(private soldierService:SoldierServiceService, private performanceService:PerformanceServiceService) { }
 
@@ -39,25 +45,7 @@ export class SoldiersInfoComponent implements OnInit {
     this.requesting = true;
     await this.soldierService.GetAll().then((res) => {
       
-      for(let i=0; i<res.length; i++)
-      {
-        let soldier:Soldier = new Soldier();
-        soldier.id = res[i].id;
-        soldier.personal_no = res[i].personal_no;
-        soldier.name = res[i].name;
-        soldier.rank = res[i].rank;
-        soldier.address = res[i].address;
-        soldier.unit = res[i].unit;
-        soldier.subunit = res[i].subunit;
-        soldier.contact = res[i].contact;
-        soldier.mission = res[i].mission;
-        soldier.join_date = res[i].join_date;
-        soldier.commision_date = res[i].commision_date;
-        soldier.appointment = res[i].appointment;
-        soldier.previous_company = res[i].previous_company;
-
-        this.soldiers.push(soldier);
-      }
+      this.soldiers = res;
       this.requesting = false;
       this.GetAllObservation();
     }).catch((err) => {
@@ -165,8 +153,9 @@ export class SoldiersInfoComponent implements OnInit {
     for(let i=0; i<this.observations.length; i++) this.observation_checked[i] = false;
     this.modal_assess = false;
     this.modal_observation = false;
+    this.modal_report = false;
     if(ind == 0) this.GetSoldierObservation();
-    else this.GetAllSubCriteria();
+    else if(ind == 1) this.GetAllSubCriteria();
   }
 
   async OnClickSaveObservation(){
@@ -219,6 +208,28 @@ export class SoldiersInfoComponent implements OnInit {
     {
       this.total += this.subCriterias.sub_criterias[i].mark;
     }
+  }
+
+  OnClickDownloadReport(ind:number){
+    this.requesting = true;
+    this.soldier_index = ind;
+    this.download_url = AppState.instance.backendURL+"/core/report/download/officer/"+AppState.instance.related_id.toString()+"/soldier/"+this.soldiers[this.soldier_index].id.toString();
+    this.performanceService.CheckReport(this.soldiers[this.soldier_index].id).then((res) =>{
+      if(res.status == true){
+        this.report_status = "Your PDF File is ready.";
+        this.pdf_found = true;
+      }
+      else{
+        this.report_status = "PDF Not Found";
+        this.pdf_found = false;
+      }
+      this.requesting = false;
+      this.modal_report = true;
+    }).catch((err) =>{
+      console.log(err);
+      this.requesting = false;
+      window.alert("ERROR");
+    });
   }
 
 }

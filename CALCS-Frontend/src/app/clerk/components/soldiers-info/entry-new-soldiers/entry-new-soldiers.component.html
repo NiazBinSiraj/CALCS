@@ -10,7 +10,7 @@
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditPersonalNo($event)" class="input" type="text" placeholder="Personal No">
+            <input (keyup)="OnEditPersonalNo($event)" class="input" type="text" value={{newSoldier.personal_no}} placeholder="Personal No">
           </p>
         </div>
       </td>
@@ -24,7 +24,7 @@
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditName($event)" class="input" type="text" placeholder="Name">
+            <input (keyup)="OnEditName($event)" class="input" type="text" value={{newSoldier.name}} placeholder="Name">
           </p>
         </div>
       </td>
@@ -34,39 +34,11 @@
         <div class="field has-addons">
           <p class="control" style="width: 39%;">
             <a class="button is-static is-fullwidth form-head-2">
-              Mission
-            </a>
-          </p>
-          <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditMission($event)" class="input" type="text" placeholder="Mission">
-          </p>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="field has-addons">
-          <p class="control" style="width: 39%;">
-            <a class="button is-static is-fullwidth form-head-1">
               Rank
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditRank($event)" class="input" type="text" placeholder="Rank">
-          </p>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="field has-addons">
-          <p class="control" style="width: 39%;">
-            <a class="button is-static is-fullwidth form-head-2">
-              Previous Company
-            </a>
-          </p>
-          <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditPreviousCompany($event)" class="input" type="text" placeholder="Previous Company">
+            <input (keyup)="OnEditRank($event)" class="input" type="text" value={{newSoldier.rank}} placeholder="Rank">
           </p>
         </div>
       </td>
@@ -80,21 +52,7 @@
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditUnit($event)" class="input" type="text" placeholder="Unit">
-          </p>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="field has-addons">
-          <p class="control" style="width: 39%;">
-            <a class="button is-static is-fullwidth form-head-2">
-              Address
-            </a>
-          </p>
-          <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditAddress($event)" class="input" type="text" placeholder="Address">
+            <input (keyup)="OnEditUnit($event)" class="input" type="text" value={{newSoldier.unit}} placeholder="Unit">
           </p>
         </div>
       </td>
@@ -121,61 +79,110 @@
       </td>
     </tr>
     <tr>
-        <td>
-          <div class="field has-addons">
-            <p class="control" style="width: 39%;">
-              <a class="button is-static is-fullwidth form-head-1">
-                Appointment
-              </a>
-            </p>
-            <p class="control" style="width: 60%;">
-              <input (keyup)="OnEditAppointment($event)" class="input" type="text" placeholder="Appointment">
-            </p>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Previous Subunit
+            </a>
+          </p>
+          <div class="control" style="width: 60%;">
+            <div class="select" style="width:100%">
+              <select (change)="OnEditPreviousSubunit($event)" style="width: 100%;">
+                <option>A coy</option>
+                <option>B coy</option>
+                <option>C coy</option>
+                <option>D coy</option>
+              </select>
+            </div>
           </div>
-        </td>
-      </tr>
+        </div>
+      </td>
+    </tr>
     <tr>
       <td>
         <div class="field has-addons">
           <p class="control" style="width: 39%;">
-            <a class="button is-static is-fullwidth form-head-1">
-              Contacts
+            <a class="button is-static is-fullwidth form-head-2">
+              Appointment
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditContact($event)" class="input" type="number" placeholder="Contacts">
+            <input (keyup)="OnEditAppointment($event)" class="input" type="text" value={{newSoldier.appointment}} placeholder="Appointment">
           </p>
         </div>
       </td>
     </tr>
     <tr>
-        <td>
-          <div class="field has-addons">
-            <p class="control" style="width: 39%;">
-              <a class="button is-static is-fullwidth form-head-1">
-                Join Date
-              </a>
-            </p>
-            <p class="control" style="width: 60%;">
-              <input (keyup)="OnEditJoinDate($event)" class="input" type="text" placeholder="Join Date (YYYY-MM-DD)">
-            </p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="field has-addons">
-            <p class="control" style="width: 39%;">
-              <a class="button is-static is-fullwidth form-head-1">
-                Commision Date
-              </a>
-            </p>
-            <p class="control" style="width: 60%;">
-              <input (keyup)="OnEditCommisionDate($event)" class="input" type="text" placeholder="Commision Date (YYYY-MM-DD)">
-            </p>
-          </div>
-        </td>
-      </tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-2">
+              Contact
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditContact($event)" class="input" type="text" value={{newSoldier.contact}} placeholder="Contact">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Join Date in Unit
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditJoinDateInUnit($event)" class="input" type="text" value={{newSoldier.unit_join_date}} placeholder="Join Date in Unit(YYYY-MM-DD)">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Date of Last Promotion
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditDateOfLastPromotion($event)" class="input" type="text" value={{newSoldier.last_promotion_date}} placeholder="Date of Last Promotion (YYYY-MM-DD)">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Date of Enrollment
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditDateOfEnrollment($event)" class="input" type="text" value={{newSoldier.date_of_enrollment}} placeholder="Date of Enrollment (YYYY-MM-DD)">
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field has-addons">
+          <p class="control" style="width: 39%;">
+            <a class="button is-static is-fullwidth form-head-1">
+              Due Date of Next Rank
+            </a>
+          </p>
+          <p class="control" style="width: 60%;">
+            <input (keyup)="OnEditDueDateOfNextRank($event)" class="input" type="text" value={{newSoldier.due_date_of_next_rank}} placeholder="Due Date of Next Rank (YYYY-MM-DD)">
+          </p>
+        </div>
+      </td>
+    </tr>
     <tr>
       <td>
         <button (click)="OnClickSubmit()" class="button is-fullwidth is-green">

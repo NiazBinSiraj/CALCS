@@ -25,17 +25,18 @@ export class EntryNewSoldiersComponent implements OnInit {
       "personal_no": this.newSoldier.personal_no,
       "name": this.newSoldier.name,
       "rank": this.newSoldier.rank,
-      "address": this.newSoldier.address,
       "unit": this.newSoldier.unit,
       "subunit": this.newSoldier.subunit,
+      "previous_subunit": this.newSoldier.previous_subunit,
       "appointment": this.newSoldier.appointment,
-      "join_date": this.newSoldier.join_date,
-      "commision_date": this.newSoldier.commision_date,
       "contact": this.newSoldier.contact,
-      "previous_company": this.newSoldier.previous_company,
-      "mission": this.newSoldier.mission,
+      "unit_join_date": this.newSoldier.unit_join_date,
+      "last_promotion_date": this.newSoldier.last_promotion_date,
+      "date_of_enrollment": this.newSoldier.date_of_enrollment,
+      "due_date_of_next_rank": this.newSoldier.due_date_of_next_rank
     };
     await this.soldierService.Create(entry).then((res) => {
+      this.newSoldier = new Soldier();
       this.requesting = false;
       alert("Soldier Added Successfully");
       console.log("Soldier Added Successfully\n" + res);
@@ -56,31 +57,31 @@ export class EntryNewSoldiersComponent implements OnInit {
   OnEditRank(event:any){
     this.newSoldier.rank = event.target.value;
   }
-  OnEditAddress(event:any){
-    this.newSoldier.address = event.target.value;
-  }
   OnEditUnit(event:any){
     this.newSoldier.unit = event.target.value;
   }
   OnEditSubunit(event:any){
     this.newSoldier.subunit = event.target.value;
   }
+  OnEditPreviousSubunit(event:any){
+    this.newSoldier.previous_subunit = event.target.value;
+  }
   OnEditAppointment(event:any){
     this.newSoldier.appointment = event.target.value;
-  }
-  OnEditJoinDate(event:any){
-    this.newSoldier.join_date = event.target.value;
-  }
-  OnEditCommisionDate(event:any){
-    this.newSoldier.commision_date = event.target.value;
   }
   OnEditContact(event:any){
     this.newSoldier.contact = event.target.value;
   }
-  OnEditPreviousCompany(event:any){
-    this.newSoldier.previous_company = event.target.value;
+  OnEditJoinDateInUnit(event:any){
+    this.newSoldier.unit_join_date = event.target.value;
   }
-  OnEditMission(event:any){
-    this.newSoldier.mission = event.target.value;
+  OnEditDateOfLastPromotion(event:any){
+    this.newSoldier.last_promotion_date = event.target.value;
+  }
+  OnEditDateOfEnrollment(event:any){
+    this.newSoldier.date_of_enrollment = event.target.value;
+  }
+  OnEditDueDateOfNextRank(event:any){
+    this.newSoldier.due_date_of_next_rank = event.target.value;
   }
 }

@@ -3,13 +3,13 @@ export class Soldier{
     personal_no!: number;
     name!: string;
     rank!: string;
-    address!: string;
     unit!: string;
     subunit!: string;
+    previous_subunit!:string;
     appointment!: string;
-    join_date!: string;
-    commision_date!: string;
     contact!: string;
-    previous_company!: string;
-    mission!: string;
+    unit_join_date!:string;
+    last_promotion_date!:string;
+    date_of_enrollment!:string;
+    due_date_of_next_rank!:string;
 }
