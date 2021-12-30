@@ -46,6 +46,7 @@ export class SoldiersInfoComponent implements OnInit {
     await this.soldierService.GetAll().then((res) => {
       
       this.soldiers = res;
+      this.soldiers = this.soldiers.filter(function(value, index, arr){return value.subunit == AppState.instance.officer.subunit});
       this.requesting = false;
       this.GetAllObservation();
     }).catch((err) => {

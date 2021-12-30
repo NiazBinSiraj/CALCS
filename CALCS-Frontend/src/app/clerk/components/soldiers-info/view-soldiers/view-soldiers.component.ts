@@ -5,6 +5,7 @@ import { Soldier } from './../../../../models/soldier';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Criteria } from 'src/app/models/criteria';
 import { SubcriteriaByCriteria } from 'src/app/models/subcriteriaByCriteria';
+import { AppState } from 'src/app-state';
 
 @Component({
   selector: 'app-view-soldiers',
@@ -76,7 +77,8 @@ export class ViewSoldiersComponent implements OnInit {
     this.soldiers = [];
     await this.SoldierService.GetAll().then((res) => {
       this.soldiers = res;
-      console.log(this.soldiers);
+      this.soldiers = this.soldiers.filter(function(value, index, arr){return value.subunit == AppState.instance.clerk.subunit});
+      //console.log(this.soldiers);
       this.requesting = false;
     }).catch((err) => {
       this.requesting = false;

@@ -1,4 +1,4 @@
-<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Soldiers's Info</h2>
+<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Soldier's Info</h2>
 <table class="table is-bordered is-fullwidth is-narrow">
   <thead>
     <tr>
@@ -31,14 +31,26 @@
       <td>{{soldier.last_promotion_date}}</td>
       <td>{{soldier.date_of_enrollment}}</td>
       <td>{{soldier.due_date_of_next_rank}}</td>
-      <td>
-        <div class="buttons">
-          <button (click)="OnClickEditInfo(i)" class="button is-success">Edit Info</button>
-          <button (click)="OnClickTransfer(i)" class="button is-success">Transfer</button>
-          <button (click)="OnClickAssess(i)" class="button is-success">Assessment</button>
-          <button (click)="OnClickObservation(i)" class="button is-success">Observations</button>
-          <button (click)="OnClickDelete(i)" class="button is-success">Delete</button>
-          <button (click)="OnClickGeneratePDF(i)" class="button is-success">Generate PDF</button>
+      <td style="width: 120px;">
+        <div class="buttons" style="width: 100%; justify-content: center; height: 100%;">
+          <span (click)="OnClickEditInfo(i)" class="icon has-text-success" style="margin-right: 3px;">
+            <i class="fas fa-edit" title="Edit Info"></i>
+          </span>
+          <span (click)="OnClickTransfer(i)" class="icon has-text-success" style="margin-right: 3px; margin-left: 3px;">
+            <i class="fas fa-exchange-alt" title="Transfer"></i>
+          </span>
+          <span (click)="OnClickAssess(i)" class="icon has-text-success" style="margin-right: 3px; margin-left: 3px;">
+            <i class="fas fa-marker" title="Assess"></i>
+          </span>
+          <span (click)="OnClickObservation(i)" class="icon has-text-success" style="margin-right: 3px; margin-left: 3px;">
+            <i class="fas fa-star" title="Observations"></i>
+          </span>
+          <span (click)="OnClickGeneratePDF(i)" class="icon has-text-success" style="margin-right: 3px; margin-left: 3px;">
+            <i class="fas fa-file-pdf" title="Generate PDF"></i>
+          </span>
+          <span (click)="OnClickDelete(i)" class="icon has-text-danger" style="margin-left: 3px;">
+            <i class="fas fa-trash-alt" title="Delete Soldier"></i>
+          </span>
         </div>
       </td>
     </tr>

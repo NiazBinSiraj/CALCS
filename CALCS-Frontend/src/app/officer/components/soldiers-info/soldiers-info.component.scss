@@ -21,3 +21,15 @@
     height: 86vh;
     background-color: $secondary-color;
 }
+
+.icon:hover{
+    cursor: pointer;
+}
+
+.has-text-success{
+    color: $primary-color !important;
+}
+
+.has-text-danger{
+    color: red !important;
+}
