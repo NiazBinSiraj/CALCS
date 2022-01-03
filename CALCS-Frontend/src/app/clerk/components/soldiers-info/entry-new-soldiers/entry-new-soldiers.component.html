@@ -68,10 +68,10 @@
           <div class="control" style="width: 60%;">
             <div class="select" style="width:100%">
               <select (change)="OnEditSubunit($event)" style="width: 100%;">
-                <option>A coy</option>
-                <option>B coy</option>
-                <option>C coy</option>
-                <option>D coy</option>
+                <option [selected]="newSoldier.subunit == 'A coy' || newSoldier.subunit == '' || newSoldier.subunit == null">A coy</option>
+                <option [selected]="newSoldier.subunit == 'B coy' ">B coy</option>
+                <option [selected]="newSoldier.subunit == 'C coy' ">C coy</option>
+                <option [selected]="newSoldier.subunit == 'D coy' ">D coy</option>
               </select>
             </div>
           </div>
@@ -89,10 +89,11 @@
           <div class="control" style="width: 60%;">
             <div class="select" style="width:100%">
               <select (change)="OnEditPreviousSubunit($event)" style="width: 100%;">
-                <option>A coy</option>
-                <option>B coy</option>
-                <option>C coy</option>
-                <option>D coy</option>
+                <option [selected]="newSoldier.previous_subunit == 'None' || newSoldier.previous_subunit == '' || newSoldier.previous_subunit == null">None</option>
+                <option [selected]="newSoldier.previous_subunit == 'A coy' ">A coy</option>
+                <option [selected]="newSoldier.previous_subunit == 'B coy' ">B coy</option>
+                <option [selected]="newSoldier.previous_subunit == 'C coy' ">C coy</option>
+                <option [selected]="newSoldier.previous_subunit == 'D coy' ">D coy</option>
               </select>
             </div>
           </div>
@@ -136,7 +137,7 @@
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditJoinDateInUnit($event)" class="input" type="text" value={{newSoldier.unit_join_date}} placeholder="Join Date in Unit(YYYY-MM-DD)">
+            <input (change)="OnEditJoinDateInUnit($event)" type="date" class="input" [valueAsDate] ="StringToDate(newSoldier.unit_join_date)">
           </p>
         </div>
       </td>
@@ -150,7 +151,7 @@
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditDateOfLastPromotion($event)" class="input" type="text" value={{newSoldier.last_promotion_date}} placeholder="Date of Last Promotion (YYYY-MM-DD)">
+            <input (change)="OnEditDateOfLastPromotion($event)" type="date" class="input" [valueAsDate] ="StringToDate(newSoldier.last_promotion_date)">
           </p>
         </div>
       </td>
@@ -164,7 +165,7 @@
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditDateOfEnrollment($event)" class="input" type="text" value={{newSoldier.date_of_enrollment}} placeholder="Date of Enrollment (YYYY-MM-DD)">
+            <input (change)="OnEditDateOfEnrollment($event)" type="date" class="input" [valueAsDate] ="StringToDate(newSoldier.date_of_enrollment)">
           </p>
         </div>
       </td>
@@ -178,7 +179,7 @@
             </a>
           </p>
           <p class="control" style="width: 60%;">
-            <input (keyup)="OnEditDueDateOfNextRank($event)" class="input" type="text" value={{newSoldier.due_date_of_next_rank}} placeholder="Due Date of Next Rank (YYYY-MM-DD)">
+            <input (change)="OnEditDueDateOfNextRank($event)" type="date" class="input" [valueAsDate] ="StringToDate(newSoldier.due_date_of_next_rank)">
           </p>
         </div>
       </td>

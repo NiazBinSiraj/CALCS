@@ -16,6 +16,7 @@ export class EntryNewSoldiersComponent implements OnInit {
 
   ngOnInit(): void {
     this.newSoldier.subunit = "A coy";
+    this.newSoldier.previous_subunit = "None";
   }
 
   async OnClickSubmit()
@@ -40,6 +41,9 @@ export class EntryNewSoldiersComponent implements OnInit {
       this.requesting = false;
       alert("Soldier Added Successfully");
       console.log("Soldier Added Successfully\n" + res);
+      this.newSoldier = new Soldier();
+      this.newSoldier.subunit = "A coy";
+      this.newSoldier.previous_subunit = "None";
     }).catch((err) => {
       this.requesting = false;
       if(err.error.personal_no != null) alert(err.error.personal_no);
@@ -83,5 +87,11 @@ export class EntryNewSoldiersComponent implements OnInit {
   }
   OnEditDueDateOfNextRank(event:any){
     this.newSoldier.due_date_of_next_rank = event.target.value;
+  }
+
+  StringToDate(dateString:string)
+  {
+    console.log(dateString);
+    return new Date(dateString);
   }
 }

@@ -1,4 +1,4 @@
-<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Soldiers's Info</h2>
+<h2 class="title is-2" style="text-align: center; margin-top: 10px;">Soldier's Info</h2>
 <table class="table is-bordered is-fullwidth is-narrow">
   <thead>
     <tr>
@@ -31,14 +31,26 @@
       <td>{{soldier.last_promotion_date}}</td>
       <td>{{soldier.date_of_enrollment}}</td>
       <td>{{soldier.due_date_of_next_rank}}</td>
-      <td>
-        <div class="buttons">
-          <button (click)="OnClickEditInfo(i)" class="button is-success">Edit Info</button>
-          <button (click)="OnClickTransfer(i)" class="button is-success">Transfer</button>
-          <button (click)="OnClickAssess(i)" class="button is-success">Assessment</button>
-          <button (click)="OnClickObservation(i)" class="button is-success">Observations</button>
-          <button (click)="OnClickDelete(i)" class="button is-success">Delete</button>
-          <button (click)="OnClickGeneratePDF(i)" class="button is-success">Generate PDF</button>
+      <td style="width: 120px;">
+        <div class="buttons" style="width: 100%; justify-content: center; height: 100%;">
+          <span (click)="OnClickEditInfo(i)" class="icon has-text-success" style="margin-right: 3px;">
+            <i class="fas fa-edit" title="Edit Info"></i>
+          </span>
+          <span (click)="OnClickTransfer(i)" class="icon has-text-success" style="margin-right: 3px; margin-left: 3px;">
+            <i class="fas fa-exchange-alt" title="Transfer"></i>
+          </span>
+          <span (click)="OnClickAssess(i)" class="icon has-text-success" style="margin-right: 3px; margin-left: 3px;">
+            <i class="fas fa-marker" title="Assess"></i>
+          </span>
+          <span (click)="OnClickObservation(i)" class="icon has-text-success" style="margin-right: 3px; margin-left: 3px;">
+            <i class="fas fa-star" title="Observations"></i>
+          </span>
+          <span (click)="OnClickDownloadReport(i)" class="icon has-text-success" style="margin-left: 5px;">
+            <i class="fas fa-file-pdf" title="Download Report"></i>
+          </span>
+          <span (click)="OnClickDelete(i)" class="icon has-text-danger" style="margin-left: 3px;">
+            <i class="fas fa-trash-alt" title="Delete Soldier"></i>
+          </span>
         </div>
       </td>
     </tr>
@@ -53,7 +65,7 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Edit Observations</p>
-      <button class="delete" aria-label="close"></button>
+      <button (click)="OnClickClose()" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <li *ngFor="let observation of observations; let i = index">{{observation.message}}</li>
@@ -71,7 +83,7 @@
   <div class="modal-card" style="width: 70%;">
     <header class="modal-card-head">
       <p class="modal-card-title">Assess</p>
-      <button class="delete" aria-label="close"></button>
+      <button (click)="OnClickClose()" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <!-- Content ... -->
@@ -125,7 +137,7 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Edit Soldier Info</p>
-      <button class="delete" aria-label="close"></button>
+      <button (click)="OnClickClose()" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <!-- Content ... -->
@@ -224,8 +236,7 @@
                   </a>
                 </p>
                 <p class="control" style="width: 60%;">
-                  <input (keyup)="OnEditJoinDateInUnit($event)" class="input" type="text"
-                    value={{newSoldier.unit_join_date}}>
+                  <input (change)="OnEditDueDateOfNextRank($event)" type="date" class="input" [valueAsDate] ="StringToDate(newSoldier.unit_join_date)">
                 </p>
               </div>
             </td>
@@ -239,8 +250,7 @@
                   </a>
                 </p>
                 <p class="control" style="width: 60%;">
-                  <input (keyup)="OnEditDateOfLastPromotion($event)" class="input" type="text"
-                    value={{newSoldier.last_promotion_date}}>
+                  <input (change)="OnEditDateOfLastPromotion($event)" type="date" class="input" [valueAsDate] ="StringToDate(newSoldier.last_promotion_date)">
                 </p>
               </div>
             </td>
@@ -254,8 +264,7 @@
                   </a>
                 </p>
                 <p class="control" style="width: 60%;">
-                  <input (keyup)="OnEditDateOfEnrollment($event)" class="input" type="text"
-                    value={{newSoldier.date_of_enrollment}}>
+                  <input (change)="OnEditDateOfEnrollment($event)" type="date" class="input" [valueAsDate] ="StringToDate(newSoldier.date_of_enrollment)">
                 </p>
               </div>
             </td>
@@ -269,8 +278,7 @@
                   </a>
                 </p>
                 <p class="control" style="width: 60%;">
-                  <input (keyup)="OnEditDueDateOfNextRank($event)" class="input" type="text"
-                    value={{newSoldier.due_date_of_next_rank}}>
+                  <input (change)="OnEditDueDateOfNextRank($event)" type="date" class="input" [valueAsDate] ="StringToDate(newSoldier.due_date_of_next_rank)">
                 </p>
               </div>
             </td>
@@ -291,7 +299,7 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Modal title</p>
-      <button class="delete" aria-label="close"></button>
+      <button (click)="OnClickClose()" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <!-- Content ... -->
@@ -302,7 +310,7 @@
           </a>
         </p>
         <p class="control" style="width: 60%;">
-          <input readonly class="input" type="text" value={{newSoldier.subunit}}>
+          <input readonly class="input" type="text" value={{newSoldier.previous_subunit}}>
         </p>
       </div>
 
@@ -331,264 +339,20 @@
   </div>
 </div>
 
-<!--Generate Report-->
+<!--Report Download Modal-->
 <div class="modal" [ngClass]="{'is-active':modal_report}">
   <div class="modal-background"></div>
-  <div class="modal-card" style="width: 80%;">
+  <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">ANNUAL CONFIDENTIAL REPORT</p>
-      <button class="delete" aria-label="close"></button>
+      <p class="modal-card-title">Report Download</p>
+      <button (click)="OnClickClose()" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <!-- Content ... -->
-      <div style="display: flex; flex-direction: column; width: 100%; justify-content: center; align-items: center;">
-        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
-          <p style="margin-right: 5px;">Tenure of evaluation:</p>
-          <input (keyup)="OnEditEvaluationFromDate($event)" type="text" class="input">
-          <p style="margin-left: 5px; margin-right: 5px;"> to </p>
-          <input (keyup)="OnEditEvaluationToDate($event)" type="text" class="input">
-        </div>
-
-        <div style="display: flex; width: 100%; flex-direction: column; justify-content: center; align-items: center;">
-          <table class="table is-fullwidth">
-            <tbody>
-              <tr>
-                <td>
-                  <p>Personal No, Rank and Name: </p>
-                </td>
-                <td>
-                  <input readonly type="text" class="input" value={{report_name}}>
-                </td>
-                <td>
-                  <p>Appointment: </p>
-                </td>
-                <td>
-                  <input readonly type="text" class="input" value={{report.appointment}}>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <p>Date of Enrollment: </p>
-                </td>
-                <td>
-                  <input readonly type="text" class="input" value={{report.date_of_enrollment}}>
-                </td>
-                <td>
-                  <p>Date of Last Promotion: </p>
-                </td>
-                <td>
-                  <input readonly type="text" class="input" value={{report.last_promotion_date}}>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <p>Unit: </p>
-                </td>
-                <td>
-                  <input readonly type="text" class="input" value={{report.unit}}>
-                </td>
-                <td>
-                  <p>Medical Category: </p>
-                </td>
-                <td>
-                  <input (keyup)="OnEditMedicalCategory($event)" type="text" class="input" value={{report.medical_category}}>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <p>First Biannual</p>
-                </td>
-                <td>
-                  <div class="control">
-                    <label class="radio">
-                      <input (change)="OnSelectFirstBiannualPass($event)" type="radio" name="first_biannual">
-                      Pass
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectFirstBiannualFail($event)" type="radio" name="first_biannual">
-                      Fail
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <p>DIV Order letter no:</p>
-                </td>
-                <td>
-                  <input (keyup)="OnEditOrderLetter1($event)" type="text" class="input" value={{report.DIV_order_letter_no_1}}>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <p>Second Biannual</p>
-                </td>
-                <td>
-                  <div class="control">
-                    <label class="radio">
-                      <input (change)="OnSelectSecondBiannualPass($event)" type="radio" name="second_biannual">
-                      Pass
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectSecondBiannualFail($event)" type="radio" name="second_biannual">
-                      Fail
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <p>DIV Order letter no:</p>
-                </td>
-                <td>
-                  <input (keyup)="OnEditOrderLetter2($event)" type="text" class="input" value={{report.DIV_order_letter_no_2}}>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <p>RET</p>
-                </td>
-                <td>
-                  <div class="control">
-                    <label class="radio">
-                      <input (change)="OnSelectRetPass($event)" type="radio" name="ret">
-                      Pass
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectRetFail($event)" type="radio" name="ret">
-                      Fail
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <p>DIV Order letter no:</p>
-                </td>
-                <td>
-                  <input (keyup)="OnEditOrderLetter3($event)" type="text" class="input" value={{report.DIV_order_letter_no_3}}>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <table class="table is-fullwidth">
-            <tbody>
-              <tr>
-                <td>Is he fit for next promotion?</td>
-                <td>
-                  <div class="control">
-                    <label class="radio">
-                      <input (change)="OnSelectFitForNextPromotionYes($event)" type="radio" name="promotion">
-                      Yes
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectFitForNextPromotionNo($event)" type="radio" name="promotion">
-                      No
-                    </label>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Is he fit for Being Instructor?</td>
-                <td>
-                  <div class="control">
-                    <label class="radio">
-                      <input (change)="OnSelectFitForBeingInstructorYes($event)" type="radio" name="instructor">
-                      Yes
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectFitForBeingInstructorNo($event)" type="radio" name="instructor">
-                      No
-                    </label>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Is he fit for Foreign Mission?</td>
-                <td>
-                  <div class="control">
-                    <label class="radio">
-                      <input (change)="OnSelectFitForForeignMissionYes($event)" type="radio" name="mission">
-                      Yes
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectFitForForeignMissionNo($event)" type="radio" name="mission">
-                      No
-                    </label>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <table class="table is-fullwidth">
-            <tbody>
-              <tr>
-                <td>
-                  <p>Recommendation for next Appt:</p>
-                </td>
-                <td>
-                  <input (keyup)="OnEditRecomendationForNextAppt($event)" type="text" class="input" value={{report.recommendation_for_next_appt}}>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <p>Special Quality (If any):</p>
-                </td>
-                <td>
-                  <input (keyup)="OnEditSpecialQuality($event)" type="text" class="input" value={{report.special_quality}}>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <p>Remarks By Initiating Officer:</p>
-                </td>
-                <td>
-                  <input (keyup)="OnEditRemarks($event)" type="text" class="input" value={{report.remarks_by_initiating_officer}}>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <p>Grade:</p>
-                </td>
-                <td>
-                  <div class="control">
-                    <label class="radio">
-                      <input (change)="OnSelectGradeOutStanding($event)" type="radio" name="grade">
-                      Outstanding (91-100)
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectGradeAboveAverage($event)" type="radio" name="grade">
-                      Above Average (81-90)
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectGradeHighAverage($event)" type="radio" name="grade">
-                      High Average (71-80)
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectGradeAverage($event)" type="radio" name="grade">
-                      Average (61-70)
-                    </label>
-                    <label class="radio">
-                      <input (change)="OnSelectGradeBelowAverage($event)" type="radio" name="grade">
-                      Below Average (51-60)
-                    </label>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-      </div>
+      <h1 class="title" style="text-align: center;">{{report_status}}</h1>
     </section>
     <footer class="modal-card-foot">
-      <button (click)="OnClickGenerateReport()" class="button is-success">Save changes</button>
+      <a href={{download_url}} class="button is-success" *ngIf="pdf_found == true" target="_blank">Download</a>
       <button (click)="OnClickClose()" class="button">Cancel</button>
     </footer>
   </div>
