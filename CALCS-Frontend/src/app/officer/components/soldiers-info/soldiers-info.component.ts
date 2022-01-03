@@ -14,6 +14,41 @@ import { PerformanceServiceService } from 'src/app/services/performanceService/p
 })
 export class SoldiersInfoComponent implements OnInit {
 
+  report = {
+    "evaluation_date_from": "",
+    "evaluation_date_to": "",
+    "personal_no": 0,
+    "rank": "",
+    "name": "",
+    "appointment": "",
+    "date_of_enrollment": "",
+    "last_promotion_date": "",
+    "unit": "",
+    "medical_category": "",
+    "IPFT_first_biannual": "",
+    "IPFT_second_biannual": "",
+    "RET": "",
+    "DIV_order_letter_no_1": "",
+    "DIV_order_letter_no_2": "",
+    "DIV_order_letter_no_3": "",
+    "criteria_name": {},
+    "fit_for_next_promotion": "",
+    "fit_for_next_promotion_yes_text": "",
+    "fit_for_next_promotion_no_text": "",
+    "fit_for_being_instructor": "",
+    "fit_for_being_instructor_yes_text": "",
+    "fit_for_being_instructor_no_text": "",
+    "fit_for_foreign_mission": "",
+    "fit_for_foreign_mission_yes_text": "",
+    "fit_for_foreign_mission_no_text": "",
+    "recommendation_for_next_appt": "",
+    "special_quality": "",
+    "remarks_by_initiating_officer": "",
+    "grade": ""
+  };
+  report_name:string = "";
+  report_total_marks = 0;
+  
   observation_checked:boolean[] = [];
 
   requesting:boolean = false;
@@ -26,6 +61,7 @@ export class SoldiersInfoComponent implements OnInit {
   modal_assess:boolean = false;
   modal_observation:boolean = false;
   modal_report:boolean = false;
+  modal_report_download:boolean = false;
   soldier_index:number = -1;
   criteria_index:number = -1;
   total:number = 0;
@@ -155,6 +191,7 @@ export class SoldiersInfoComponent implements OnInit {
     this.modal_assess = false;
     this.modal_observation = false;
     this.modal_report = false;
+    this.modal_report_download = false;
     if(ind == 0) this.GetSoldierObservation();
     else if(ind == 1) this.GetAllSubCriteria();
   }
@@ -211,6 +248,178 @@ export class SoldiersInfoComponent implements OnInit {
     }
   }
 
+  //PDF Report
+  OnClickGeneratePDF(ind:number)
+  {
+    this.soldier_index = ind;
+    this.requesting = true;
+    this.performanceService.GetDefaultData(this.soldiers[this.soldier_index].id).then((res) =>{
+      this.report = res;
+      this.report_total_marks = res.criteria_name.total_marks;
+      this.report_name = this.report.personal_no.toString() + " " + this.report.rank + " " + this.report.name;
+      console.log(this.report);
+      this.requesting = false;
+    }).catch((err) =>{
+      console.log(err);
+      this.requesting = false;
+      window.alert("ERROR");
+    });
+
+    this.modal_report = true;
+  }
+
+  OnEditEvaluationFromDate(event:any){
+    this.report.evaluation_date_from = event.target.value;
+  }
+  OnEditEvaluationToDate(event:any){
+    this.report.evaluation_date_to = event.target.value;
+  }
+  OnEditMedicalCategory(event:any){
+    this.report.medical_category = event.target.value;
+  }
+  OnSelectFirstBiannualPass(event:any){
+    this.report.IPFT_first_biannual ="1";
+  }
+
+  OnSelectFirstBiannualFail(event:any){
+    this.report.IPFT_first_biannual ="0";
+  }
+
+  OnEditOrderLetter1(event:any){
+    this.report.DIV_order_letter_no_1 = event.target.value;
+  }
+  OnSelectSecondBiannualPass(event:any){
+    this.report.IPFT_second_biannual ="1";
+  }
+
+  OnSelectSecondBiannualFail(event:any){
+    this.report.IPFT_second_biannual ="0";
+  }
+
+  OnEditOrderLetter2(event:any){
+    this.report.DIV_order_letter_no_2 = event.target.value;
+  }
+
+  OnSelectRetPass(event:any){
+    this.report.RET ="1";
+  }
+
+  OnSelectRetFail(event:any){
+    this.report.RET ="0";
+  }
+
+  OnEditOrderLetter3(event:any){
+    this.report.DIV_order_letter_no_3 = event.target.value;
+  }
+
+  OnSelectFitForNextPromotionYes(event:any){
+    this.report.fit_for_next_promotion = "1";
+  }
+  OnSelectFitForNextPromotionNo(event:any){
+    this.report.fit_for_next_promotion = "0";
+  }
+
+  OnSelectFitForBeingInstructorYes(event:any){
+    this.report.fit_for_being_instructor = "1";
+  }
+  OnSelectFitForBeingInstructorNo(event:any){
+    this.report.fit_for_being_instructor = "0";
+  }
+
+  OnSelectFitForForeignMissionYes(event:any){
+    this.report.fit_for_foreign_mission = "1";
+  }
+  OnSelectFitForForeignMissionNo(event:any){
+    this.report.fit_for_foreign_mission = "0";
+  }
+
+  OnEditRecomendationForNextAppt(event:any){
+    this.report.recommendation_for_next_appt = event.target.value;
+  }
+  OnEditSpecialQuality(event:any){
+    this.report.special_quality = event.target.value;
+  }
+  OnEditRemarks(event:any){
+    this.report.remarks_by_initiating_officer = event.target.value;
+  }
+
+  OnSelectGradeOutStanding(event:any){
+    this.report.grade = "0";
+  }
+  OnSelectGradeAboveAverage(event:any){
+    this.report.grade = "1";
+  }
+  OnSelectGradeHighAverage(event:any){
+    this.report.grade = "2";
+  }
+  OnSelectGradeAverage(event:any){
+    this.report.grade = "3";
+  }
+  OnSelectGradeBelowAverage(event:any){
+    this.report.grade = "4";
+  }
+
+  async OnClickGenerateReport()
+  {
+    if(this.report.evaluation_date_from == "")
+    {
+      window.alert("Evaluation Date From can not be empty");
+      return;
+    }
+    else if(this.report.evaluation_date_to == "")
+    {
+      window.alert("Evaluation Date To can not be empty");
+      return;
+    }
+    else if(this.report.medical_category == "")
+    {
+      window.alert("Medical Category To can not be empty");
+      return;
+    }
+    else if(this.report.IPFT_first_biannual == "")
+    {
+      window.alert("IPFT_first_biannual can not be empty");
+      return;
+    }
+    else if(this.report.IPFT_second_biannual == "")
+    {
+      window.alert("IPFT_second_biannual can not be empty");
+      return;
+    }
+    else if(this.report.RET == "")
+    {
+      window.alert("RET can not be empty");
+      return;
+    }
+    else if(this.report.DIV_order_letter_no_1 == "")
+    {
+      window.alert("DIV_order_letter_no1 can not be empty");
+      return;
+    }
+    else if(this.report.DIV_order_letter_no_2 == "")
+    {
+      window.alert("DIV_order_letter_no2 can not be empty");
+      return;
+    }
+    else if(this.report.DIV_order_letter_no_3 == "")
+    {
+      window.alert("DIV_order_letter_no3 can not be empty");
+      return;
+    }
+
+    this.requesting = true;
+    await this.performanceService.SubmitReport(this.soldiers[this.soldier_index].id, this.report).then((res) =>{
+      this.requesting = false;
+      window.alert("Data Submitted Successfully");
+      this.OnClickClose(2);
+    }).catch((err) =>{
+      console.log(err);
+      this.requesting = false;
+      window.alert("ERROR");
+    });
+
+  }
+
   OnClickDownloadReport(ind:number){
     this.requesting = true;
     this.soldier_index = ind;
@@ -225,7 +434,7 @@ export class SoldiersInfoComponent implements OnInit {
         this.pdf_found = false;
       }
       this.requesting = false;
-      this.modal_report = true;
+      this.modal_report_download = true;
     }).catch((err) =>{
       console.log(err);
       this.requesting = false;
