@@ -14,6 +14,16 @@ import { PerformanceServiceService } from 'src/app/services/performanceService/p
 })
 export class SoldiersInfoComponent implements OnInit {
 
+  info_body = {
+    "soldier": -1,
+    "medical_category": "",
+    "IPFT_first_biannual": 0,
+    "IPFT_second_biannual": 0,
+    "RET": 0
+  };
+
+  info_id:number = -1;
+  
   report = {
     "evaluation_date_from": "",
     "evaluation_date_to": "",
@@ -25,9 +35,9 @@ export class SoldiersInfoComponent implements OnInit {
     "last_promotion_date": "",
     "unit": "",
     "medical_category": "",
-    "IPFT_first_biannual": "",
-    "IPFT_second_biannual": "",
-    "RET": "",
+    "IPFT_first_biannual": 0,
+    "IPFT_second_biannual": 0,
+    "RET": 0,
     "DIV_order_letter_no_1": "",
     "DIV_order_letter_no_2": "",
     "DIV_order_letter_no_3": "",
@@ -46,6 +56,7 @@ export class SoldiersInfoComponent implements OnInit {
     "remarks_by_initiating_officer": "",
     "grade": ""
   };
+
   report_name:string = "";
   report_total_marks = 0;
   
@@ -69,6 +80,7 @@ export class SoldiersInfoComponent implements OnInit {
   download_url = "";
   report_status:string = "";
   pdf_found:boolean = false;
+  clickedInfo:boolean = false;
   
   constructor(private soldierService:SoldierServiceService, private performanceService:PerformanceServiceService) { }
 
@@ -162,8 +174,32 @@ export class SoldiersInfoComponent implements OnInit {
 
   OnClickCriteria(ind:number)
   {
+    this.clickedInfo = false;
     this.criteria_index = ind;
     this.GetAllSubCriteria();
+
+    this.info_body.IPFT_first_biannual = 0;
+    this.info_body.IPFT_second_biannual = 0;
+    this.info_body.RET = 0;
+    this.info_body.medical_category = "";
+    //this.info_body.soldier = -1;
+    this.info_id = -1;
+  }
+
+  async OnClickInfo()
+  {
+    this.clickedInfo = true;
+    this.requesting = true;
+    await this.soldierService.GetByIDExtra(this.soldiers[this.soldier_index].id).then((res) =>{
+      console.log(res);
+      this.info_id = res.id;
+      this.info_body = res;
+      this.requesting = false;
+    }).catch((err) =>{
+      this.requesting = false;
+      console.log(err);
+      console.log(this.info_body);
+    });
   }
 
   OnClickAssess(ind:number)
@@ -187,6 +223,7 @@ export class SoldiersInfoComponent implements OnInit {
   }
 
   OnClickClose(ind:number){
+    this.clickedInfo = false;
     for(let i=0; i<this.observations.length; i++) this.observation_checked[i] = false;
     this.modal_assess = false;
     this.modal_observation = false;
@@ -194,6 +231,13 @@ export class SoldiersInfoComponent implements OnInit {
     this.modal_report_download = false;
     if(ind == 0) this.GetSoldierObservation();
     else if(ind == 1) this.GetAllSubCriteria();
+
+    this.info_body.IPFT_first_biannual = 0;
+    this.info_body.IPFT_second_biannual = 0;
+    this.info_body.RET = 0;
+    this.info_body.medical_category = "";
+    this.info_body.soldier = -1;
+    this.info_id = -1;
   }
 
   async OnClickSaveObservation(){
@@ -211,6 +255,47 @@ export class SoldiersInfoComponent implements OnInit {
 
   async OnClickSaveAssess(){
     this.requesting = true;
+    
+    if(this.clickedInfo)
+    {
+      this.clickedInfo = false;
+      this.info_body.soldier = this.soldiers[this.soldier_index].id;
+      
+      if(this.info_id != -1)
+      {
+        this.requesting = true;
+        this.soldierService.UpdateExtra(this.info_id, this.info_body).then((res) =>{
+          alert("Updated Successfully");
+          this.requesting = false;
+          return;
+        }).catch((err) =>{
+          this.requesting = false;
+          console.log(err);
+          alert("ERROR");
+          return;
+        });
+        return;
+      }
+      
+      
+      
+      if(this.info_body.medical_category == "")
+      {
+        alert("Medical Category can not be blank");
+        return;
+      }
+
+      this.soldierService.CreateExtra(this.info_body).then((res) =>{
+        this.requesting = false;
+        return;
+      }).catch((err) =>{
+        console.log(err);
+        alert("ERROR");
+        this.requesting = false;
+        return;
+      });
+    }
+    
     await this.performanceService.SetAssesment(this.soldiers[this.soldier_index].id, this.criterias[this.criteria_index].id, this.subCriterias).then((res) =>{
       this.requesting = false;
     }).catch((err) =>{
@@ -253,11 +338,23 @@ export class SoldiersInfoComponent implements OnInit {
   {
     this.soldier_index = ind;
     this.requesting = true;
-    this.performanceService.GetDefaultData(this.soldiers[this.soldier_index].id).then((res) =>{
+    this.performanceService.GetDefaultData(this.soldiers[this.soldier_index].id).then(async (res) =>{
       this.report = res;
-      this.report_total_marks = res.criteria_name.total_marks;
+      this.report_total_marks = res.criteria.total_marks;
       this.report_name = this.report.personal_no.toString() + " " + this.report.rank + " " + this.report.name;
-      console.log(this.report);
+
+      await this.soldierService.GetByIDExtra(this.soldiers[this.soldier_index].id).then((res1) =>{
+        this.info_body = res1;
+        this.report.medical_category = res1.medical_category;
+        this.report.IPFT_first_biannual = res1.IPFT_first_biannual;
+        this.report.IPFT_second_biannual = res1.IPFT_second_biannual;
+        this.report.RET = res1.RET;
+        console.log(this.report);
+        this.requesting = false;
+      }).catch((err) =>{
+        this.requesting = false;
+        console.log(err);
+      });
       this.requesting = false;
     }).catch((err) =>{
       console.log(err);
@@ -275,25 +372,25 @@ export class SoldiersInfoComponent implements OnInit {
     this.report.evaluation_date_to = event.target.value;
   }
   OnEditMedicalCategory(event:any){
-    this.report.medical_category = event.target.value;
+    this.info_body.medical_category = event.target.value;
   }
   OnSelectFirstBiannualPass(event:any){
-    this.report.IPFT_first_biannual ="1";
+    this.info_body.IPFT_first_biannual =1;
   }
 
   OnSelectFirstBiannualFail(event:any){
-    this.report.IPFT_first_biannual ="0";
+    this.info_body.IPFT_first_biannual =0;
   }
 
   OnEditOrderLetter1(event:any){
     this.report.DIV_order_letter_no_1 = event.target.value;
   }
   OnSelectSecondBiannualPass(event:any){
-    this.report.IPFT_second_biannual ="1";
+    this.info_body.IPFT_second_biannual =1;
   }
 
   OnSelectSecondBiannualFail(event:any){
-    this.report.IPFT_second_biannual ="0";
+    this.info_body.IPFT_second_biannual =0;
   }
 
   OnEditOrderLetter2(event:any){
@@ -301,11 +398,11 @@ export class SoldiersInfoComponent implements OnInit {
   }
 
   OnSelectRetPass(event:any){
-    this.report.RET ="1";
+    this.info_body.RET =1;
   }
 
   OnSelectRetFail(event:any){
-    this.report.RET ="0";
+    this.info_body.RET =0;
   }
 
   OnEditOrderLetter3(event:any){
@@ -361,6 +458,7 @@ export class SoldiersInfoComponent implements OnInit {
 
   async OnClickGenerateReport()
   {
+    
     if(this.report.evaluation_date_from == "")
     {
       window.alert("Evaluation Date From can not be empty");
@@ -374,21 +472,6 @@ export class SoldiersInfoComponent implements OnInit {
     else if(this.report.medical_category == "")
     {
       window.alert("Medical Category To can not be empty");
-      return;
-    }
-    else if(this.report.IPFT_first_biannual == "")
-    {
-      window.alert("IPFT_first_biannual can not be empty");
-      return;
-    }
-    else if(this.report.IPFT_second_biannual == "")
-    {
-      window.alert("IPFT_second_biannual can not be empty");
-      return;
-    }
-    else if(this.report.RET == "")
-    {
-      window.alert("RET can not be empty");
       return;
     }
     else if(this.report.DIV_order_letter_no_1 == "")
@@ -407,7 +490,17 @@ export class SoldiersInfoComponent implements OnInit {
       return;
     }
 
+    if(this.report.IPFT_first_biannual) this.report.IPFT_first_biannual = 1;
+    else this.report.IPFT_first_biannual = 0;
+
+    if(this.report.IPFT_second_biannual) this.report.IPFT_second_biannual = 1;
+    else this.report.IPFT_second_biannual = 0;
+
+    if(this.report.RET) this.report.RET = 1;
+    else this.report.RET = 0;
+
     this.requesting = true;
+    console.log(this.report);
     await this.performanceService.SubmitReport(this.soldiers[this.soldier_index].id, this.report).then((res) =>{
       this.requesting = false;
       window.alert("Data Submitted Successfully");
