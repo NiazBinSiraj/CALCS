@@ -36,10 +36,34 @@ export class ViewSoldiersComponent implements OnInit {
   report_status:string = "";
   pdf_found:boolean = false;
 
+  clickedInfo:boolean = false;
+
+  info_body = {
+    "soldier": -1,
+    "medical_category": "",
+    "IPFT_first_biannual": 0,
+    "IPFT_second_biannual": 0,
+    "RET": 0
+  };
+
   constructor(private SoldierService:SoldierServiceService, private performanceService:PerformanceServiceService) { }
 
   ngOnInit(): void {
     this.GetAllSoldiers();
+  }
+
+  async OnClickInfo(){
+    this.clickedInfo = true;
+    this.requesting = true;
+    await this.SoldierService.GetByIDExtra(this.soldiers[this.soldier_index].id).then((res) =>{
+      console.log(res);
+      this.info_body = res;
+      this.requesting = false;
+    }).catch((err) =>{
+      this.requesting = false;
+      console.log(err);
+      console.log(this.info_body);
+    });
   }
 
   async GetAllSoldiers()
@@ -139,12 +163,14 @@ export class ViewSoldiersComponent implements OnInit {
     this.modal_edit_info = false;
     this.modal_transfer = false;
     this.modal_report = false;
+    this.clickedInfo = false;
   }
 
   OnClickCriteria(ind:number)
   {
     this.criteria_index = ind;
     this.GetAllSubCriteria();
+    this.clickedInfo = false;
   }
 
   OnClickDelete(ind:number)

@@ -72,10 +72,13 @@
             <button (click)="OnClickCriteria(i)" style="width: 90%; margin-top: 14px;"
               class="button">{{criteria.name}}</button>
           </span>
+          <span style="width:100%;">
+            <button (click)="OnClickInfo()" style="width: 90%; margin-top: 14px;" class="button">Info</button>
+          </span>
         </div>
 
         <div class="column">
-          <div
+          <div *ngIf="!clickedInfo"
             style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
             <table class="table is-fullwidth container">
               <tbody>
@@ -98,6 +101,75 @@
             </table>
 
             <input readonly type="number" class="input" value={{total}}>
+          </div>
+
+          <div *ngIf="clickedInfo" style="display: flex; width: 100%; flex-direction: column; justify-content: center; align-items: center;">
+            <table class="table is-fullwidth">
+              <tbody>
+                <tr>
+                  <td>
+                    <p>Medical Category: </p>
+                  </td>
+                  <td>
+                    <input (keyup)="OnEditMedicalCategory($event)" type="text" class="input" value={{info_body.medical_category}}>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <p>First Biannual</p>
+                  </td>
+                  <td>
+                    <div class="control">
+                      <label class="radio">
+                        <input (change)="OnSelectFirstBiannualPass($event)" type="radio" name="first_biannual" [checked]="info_body.IPFT_first_biannual">
+                        Pass
+                      </label>
+                      <label class="radio">
+                        <input (change)="OnSelectFirstBiannualFail($event)" type="radio" name="first_biannual" [checked]="!info_body.IPFT_first_biannual">
+                        Fail
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>
+                    <p>Second Biannual</p>
+                  </td>
+                  <td>
+                    <div class="control">
+                      <label class="radio">
+                        <input (change)="OnSelectSecondBiannualPass($event)" type="radio" name="second_biannual" [checked]="info_body.IPFT_second_biannual">
+                        Pass
+                      </label>
+                      <label class="radio">
+                        <input (change)="OnSelectSecondBiannualFail($event)" type="radio" name="second_biannual" [checked]="!info_body.IPFT_second_biannual">
+                        Fail
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>
+                    <p>RET</p>
+                  </td>
+                  <td>
+                    <div class="control">
+                      <label class="radio">
+                        <input (change)="OnSelectRetPass($event)" type="radio" name="ret" [checked]="info_body.RET">
+                        Pass
+                      </label>
+                      <label class="radio">
+                        <input (change)="OnSelectRetFail($event)" type="radio" name="ret" [checked]="!info_body.RET">
+                        Fail
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -197,7 +269,7 @@
                   <p>Medical Category: </p>
                 </td>
                 <td>
-                  <input (keyup)="OnEditMedicalCategory($event)" type="text" class="input" value={{report.medical_category}}>
+                  <input type="text" class="input" value={{report.medical_category}} readonly>
                 </td>
               </tr>
 
@@ -208,11 +280,11 @@
                 <td>
                   <div class="control">
                     <label class="radio">
-                      <input (change)="OnSelectFirstBiannualPass($event)" type="radio" name="first_biannual">
+                      <input type="radio" name="first_biannual" readonly [checked]="report.IPFT_first_biannual" [disabled]="!report.IPFT_first_biannual">
                       Pass
                     </label>
                     <label class="radio">
-                      <input (change)="OnSelectFirstBiannualFail($event)" type="radio" name="first_biannual">
+                      <input type="radio" name="first_biannual" readonly [checked]="!report.IPFT_first_biannual" [disabled]="report.IPFT_first_biannual">
                       Fail
                     </label>
                   </div>
@@ -232,11 +304,11 @@
                 <td>
                   <div class="control">
                     <label class="radio">
-                      <input (change)="OnSelectSecondBiannualPass($event)" type="radio" name="second_biannual">
+                      <input type="radio" name="second_biannual" readonly [checked]="report.IPFT_second_biannual" [disabled]="!report.IPFT_second_biannual">
                       Pass
                     </label>
                     <label class="radio">
-                      <input (change)="OnSelectSecondBiannualFail($event)" type="radio" name="second_biannual">
+                      <input type="radio" name="second_biannual" readonly [checked]="!report.IPFT_second_biannual" [disabled]="report.IPFT_second_biannual">
                       Fail
                     </label>
                   </div>
@@ -256,11 +328,11 @@
                 <td>
                   <div class="control">
                     <label class="radio">
-                      <input (change)="OnSelectRetPass($event)" type="radio" name="ret">
+                      <input type="radio" name="ret" [checked]="report.RET" [disabled]="!report.RET">
                       Pass
                     </label>
                     <label class="radio">
-                      <input (change)="OnSelectRetFail($event)" type="radio" name="ret">
+                      <input type="radio" name="ret" readonly [checked]="!report.RET" [disabled]="report.RET">
                       Fail
                     </label>
                   </div>

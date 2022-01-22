@@ -42,4 +42,25 @@ export class SoldierServiceService {
   Update(soldier_id:number, body:any){
     return this.request('put', `${baseUrl}/core/soldiers/${soldier_id}/`, body);
   }
+
+  //Soldier Extra
+  GetAllExtra(){
+    return this.request('get', `${baseUrl}/core/soldierextra/`);
+  }
+
+  CreateExtra(body:any){
+    return this.request('post', `${baseUrl}/core/soldierextra/`, body);
+  }
+
+  GetByIDExtra(soldier_id:number){
+    return this.request('get', `${baseUrl}/core/soldier-extra/soldier/${soldier_id}/`);
+  }
+
+  UpdateExtra(soldier_id:number, body:any){
+    return this.request('put', `${baseUrl}/core/soldierextra/${soldier_id}/`, body);
+  }
+
+  DeleteExtra(soldier_id:number){
+    return this.request('delete', `${baseUrl}/core/soldierextra/${soldier_id}/`);
+  }
 }
