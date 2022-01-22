@@ -95,10 +95,14 @@
             <button (click)="OnClickCriteria(i)" style="width: 90%; margin-top: 14px;"
               class="button">{{criteria.name}}</button>
           </span>
+          <span style="width:100%;">
+            <button (click)="OnClickInfo()" style="width: 90%; margin-top: 14px;" class="button">Info</button>
+          </span>
         </div>
 
         <div class="column">
-          <div
+          
+          <div *ngIf="!clickedInfo"
             style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
             <table class="table is-fullwidth container">
               <tbody>
@@ -119,6 +123,75 @@
               </tbody>
             </table>
             <input readonly type="number" class="input" value={{total}}>
+          </div>
+
+          <div *ngIf="clickedInfo" style="display: flex; width: 100%; flex-direction: column; justify-content: center; align-items: center;">
+            <table class="table is-fullwidth">
+              <tbody>
+                <tr>
+                  <td>
+                    <p>Medical Category: </p>
+                  </td>
+                  <td>
+                    <input type="text" class="input" value={{info_body.medical_category}} readonly>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <p>First Biannual</p>
+                  </td>
+                  <td>
+                    <div class="control">
+                      <label class="radio">
+                        <input type="radio" name="first_biannual" [checked]="info_body.IPFT_first_biannual" [disabled]="!info_body.IPFT_first_biannual">
+                        Pass
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="first_biannual" [checked]="!info_body.IPFT_first_biannual" [disabled]="info_body.IPFT_first_biannual">
+                        Fail
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>
+                    <p>Second Biannual</p>
+                  </td>
+                  <td>
+                    <div class="control">
+                      <label class="radio">
+                        <input type="radio" name="second_biannual" [checked]="info_body.IPFT_second_biannual" [disabled]="!info_body.IPFT_second_biannual">
+                        Pass
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="second_biannual" [checked]="!info_body.IPFT_second_biannual" [disabled]="info_body.IPFT_second_biannual">
+                        Fail
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>
+                    <p>RET</p>
+                  </td>
+                  <td>
+                    <div class="control">
+                      <label class="radio">
+                        <input type="radio" name="ret" [checked]="info_body.RET" [disabled]="!info_body.RET">
+                        Pass
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="ret" [checked]="!info_body.RET" [disabled]="info_body.RET">
+                        Fail
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
