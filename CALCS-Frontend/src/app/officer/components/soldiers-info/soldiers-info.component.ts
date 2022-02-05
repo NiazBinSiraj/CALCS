@@ -41,7 +41,7 @@ export class SoldiersInfoComponent implements OnInit {
     "DIV_order_letter_no_1": "",
     "DIV_order_letter_no_2": "",
     "DIV_order_letter_no_3": "",
-    "criteria_name": {},
+    "criteria": {},
     "fit_for_next_promotion": "",
     "fit_for_next_promotion_yes_text": "",
     "fit_for_next_promotion_no_text": "",
