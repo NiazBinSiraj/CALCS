@@ -351,12 +351,13 @@
           <table class="table">
             <tbody>
               <tr>
-                <td *ngFor="let criteria of report.criteria_name | keyvalue">{{criteria.key}}</td>
-                <td>Total Marks</td>
+                <td *ngFor="let criteria of report.criteria | keyvalue">
+                  <p *ngIf="criteria.key === 'total_marks' ">Total Marks</p>
+                  <p *ngIf="criteria.key !== 'total_marks' ">{{criteria.key}}</p>
+                </td>
               </tr>
               <tr>
-                <td *ngFor="let criteria of report.criteria_name | keyvalue">{{criteria.value}}</td>
-                <td>{{report_total_marks}}</td>
+                <td *ngFor="let criteria of report.criteria | keyvalue">{{criteria.value}}</td>
               </tr>
             </tbody>
           </table>
